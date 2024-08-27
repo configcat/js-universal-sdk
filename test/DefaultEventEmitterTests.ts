@@ -1,5 +1,6 @@
 import { assert } from "chai";
 import { DefaultEventEmitter } from "../src/DefaultEventEmitter";
+import "core-js/features/array/flat.js";
 
 function createHandler(eventName: string, capturedArgs: any[][]) {
   return (...args: any[]) => capturedArgs.push([eventName, args]);

@@ -21,7 +21,7 @@ jobs:
         exclude:
           - node-version: 14.x
             os: macOS-latest
-    name: Node.js ${{ matrix.node-version }} (${{ matrix.node-version }}) test
+    name: Node.js ${{ matrix.node-version }} test
     steps:
       - uses: actions/checkout@v3
 

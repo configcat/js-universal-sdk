@@ -6,7 +6,7 @@
       "request": "launch",
       "name": "Run tests",
       "cwd": "${workspaceRoot}",
-      "env": { "TS_NODE_PROJECT": "./tsconfig.mocha.json" },
+      "env": { "TS_NODE_PROJECT": "./tsconfig.mocha.node.json" },
       "runtimeArgs": [
         "--expose-gc"
       ],
@@ -14,7 +14,7 @@
       "args": [
         "--require",
         "ts-node/register",
-        "test/**/*.ts",
+        "test/node/index.ts",
         "--fgrep",
         "",
         "--color",
