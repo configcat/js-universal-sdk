@@ -1,8 +1,12 @@
 {
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ES2017",
     "module": "CommonJS",
-    "outDir": "./lib",
-  }
+    "outDir": "./lib/cjs"
+  },
+  "files": [
+    "src/node/index.full.ts",
+    "src/browser/index.full.ts",
+  ]
 }

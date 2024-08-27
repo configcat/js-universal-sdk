@@ -1,5 +1,5 @@
-import type { SettingValue } from "./ProjectConfig";
-import { Setting } from "./ProjectConfig";
+import type { SettingValue } from "./ProjectConfig.js";
+import { Setting } from "./ProjectConfig.js";
 
 /**
  * Specifies the behaviours for flag overrides.

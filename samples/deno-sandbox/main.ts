@@ -1,13 +1,6 @@
-import { LogLevel, PollingMode, User, createConsoleLogger, getClient } from "src/index.ts";
-import * as path from "std/path/mod.ts";
-import { FakeConfigFetcher } from "./fake-config-fetcher.ts";
-
-const basePath = path.dirname(path.fromFileUrl(Deno.mainModule));
-const sampleJsonPath = path.resolve(basePath, "sample.json");
-const sampleJson = await Deno.readTextFile(sampleJsonPath);
-
-const configFetcher = new FakeConfigFetcher();
-configFetcher.setSuccess(sampleJson);
+import { createConsoleLogger, getClient } from "src/index.pubternals.ts";
+import { LogLevel, PollingMode, User } from "src/index.ts";
+import { FetchApiConfigFetcher } from "src/shared/FetchApiConfigFetcher.ts";
 
 // Creating the ConfigCat client instance using the SDK Key
 const client = getClient(
@@ -20,7 +13,7 @@ const client = getClient(
       .on("clientReady", () => console.log("Client is ready!"))
   },
   {
-    configFetcher,
+    configFetcher: new FetchApiConfigFetcher(),
     sdkType: "ConfigCat-Deno",
     sdkVersion: "0.0.0-sample"
   });

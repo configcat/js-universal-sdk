@@ -1,8 +1,8 @@
-import type { ClientCacheState } from "./ConfigServiceBase";
-import type { IEventEmitter, IEventProvider } from "./EventEmitter";
-import { NullEventEmitter } from "./EventEmitter";
-import type { IConfig } from "./ProjectConfig";
-import type { IEvaluationDetails } from "./RolloutEvaluator";
+import type { ClientCacheState } from "./ConfigServiceBase.js";
+import type { IEventEmitter, IEventProvider } from "./EventEmitter.js";
+import { NullEventEmitter } from "./EventEmitter.js";
+import type { IConfig } from "./ProjectConfig.js";
+import type { IEvaluationDetails } from "./RolloutEvaluator.js";
 
 /** Hooks (events) that can be emitted by `ConfigCatClient`. */
 export type HookEvents = {

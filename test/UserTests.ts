@@ -1,6 +1,5 @@
 import { assert } from "chai";
-import "mocha";
-import { User } from "../src/index";
+import { User } from "../src";
 import { WellKnownUserObjectAttribute, getUserAttribute, getUserAttributes } from "../src/User";
 
 const identifierAttribute: WellKnownUserObjectAttribute = "Identifier";

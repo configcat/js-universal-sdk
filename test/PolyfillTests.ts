@@ -1,5 +1,4 @@
 import { assert, expect } from "chai";
-import "mocha";
 import { ObjectEntriesPolyfill, ObjectFromEntriesPolyfill, ObjectValuesPolyfill, getWeakRefStub } from "../src/Polyfills";
 
 describe("Polyfills", () => {

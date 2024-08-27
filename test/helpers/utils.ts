@@ -1,6 +1,7 @@
-import { IAutoPollOptions, IConfigCatKernel, ILazyLoadingOptions, IManualPollOptions } from "../../src";
+import { IAutoPollOptions, ILazyLoadingOptions, IManualPollOptions } from "../../src";
 import { ConfigCatClient, IConfigCatClient } from "../../src/ConfigCatClient";
 import { AutoPollOptions, LazyLoadOptions, ManualPollOptions } from "../../src/ConfigCatClientOptions";
+import { IConfigCatKernel } from "../../src/index.pubternals";
 
 export const sdkType = "ConfigCat-JS-Common", sdkVersion = "0.0.0-test";
 

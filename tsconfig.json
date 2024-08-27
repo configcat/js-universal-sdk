@@ -1,23 +1,23 @@
 {
   /* Common TS compiler settings for compilation outputs, IDEs (like VSCode) and test runner (Mocha) */
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "strict": true,
     "target": "ESNext",
-    "importHelpers": true,
     "moduleResolution": "Node",
     "lib": [
-      "ES2015", // APIs used: Promise (.race)
       "DOM", // APIs used: setTimeout, clearTimeout
+      "ES2015", // APIs used: Promise (.race) (polyfilled)
       "ES2017.Object", // APIs used: Object.values (polyfilled), Object.entries (polyfilled)
       "ES2019.Object", // APIs used: Object.fromEntries (polyfilled)
-      // TODO: use the following built-in libs instead of the manually included lib.*.d.ts files when upgrading TypeScript to v4.3 or newer
-      //"ES2021.WeakRef", // APIs used: WeakRef (only used if available)
-      //"ES2021.Promise" // APIs used: AggregateError (only used if available)
+      "ES2021.WeakRef", // APIs used: WeakRef (only used if available)
+      "ES2021.Promise" // APIs used: AggregateError (only used if available)
     ]
   },
   "exclude": [
     "**/node_modules/",
     "lib/",
+    "dist/",
     "samples/"
-  ],
+  ]
 }

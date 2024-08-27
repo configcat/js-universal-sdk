@@ -1,5 +1,4 @@
 import { assert } from "chai";
-import "mocha";
 import { DefaultEventEmitter } from "../src/DefaultEventEmitter";
 
 function createHandler(eventName: string, capturedArgs: any[][]) {

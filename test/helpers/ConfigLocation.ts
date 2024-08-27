@@ -1,10 +1,7 @@
-import * as fs from "fs";
-import * as path from "path";
-import * as util from "util";
 import { ManualPollOptions } from "../../src/ConfigCatClientOptions";
 import { ManualPollConfigService } from "../../src/ManualPollConfigService";
 import { Config } from "../../src/ProjectConfig";
-import { HttpConfigFetcher } from "./HttpConfigFetcher";
+import { platform } from "./platform";
 import { sdkType, sdkVersion } from "./utils";
 
 const configCache: { [location: string]: Promise<Config> } = {};
@@ -46,7 +43,7 @@ export class CdnConfigLocation extends ConfigLocation {
   }
 
   async fetchConfigAsync(): Promise<Config> {
-    const configFetcher = new HttpConfigFetcher();
+    const configFetcher = platform().createConfigFetcher();
     const configService = new ManualPollConfigService(configFetcher, this.options);
 
     const [fetchResult, projectConfig] = await configService.refreshConfigAsync();
@@ -66,13 +63,13 @@ export class LocalFileConfigLocation extends ConfigLocation {
 
   constructor(...paths: ReadonlyArray<string>) {
     super();
-    this.filePath = path.join(...paths);
+    this.filePath = platform().pathJoin(...paths);
   }
 
   getRealLocation(): string { return this.filePath; }
 
   async fetchConfigAsync(): Promise<Config> {
-    const configJson = await util.promisify(fs.readFile)(this.filePath, "utf8");
+    const configJson = await platform().readFileUtf8(this.filePath);
     const parsedObject = JSON.parse(configJson);
     return new Config(parsedObject);
   }

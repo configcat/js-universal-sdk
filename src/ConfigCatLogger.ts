@@ -1,5 +1,5 @@
-import type { SafeHooksWrapper } from "./Hooks";
-import { errorToString } from "./Utils";
+import type { SafeHooksWrapper } from "./Hooks.js";
+import { errorToString } from "./Utils.js";
 
 /**
  * Specifies event severity levels for the `IConfigCatLogger` interface.

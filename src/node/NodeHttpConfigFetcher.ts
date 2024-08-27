@@ -2,10 +2,12 @@ import * as http from "http";
 import * as https from "https";
 import * as tunnel from "tunnel";
 import { URL } from "url";
-import { FetchError, FormattableLogMessage, IConfigFetcher, LogLevel } from "../../src";
-import type { IFetchResponse, OptionsBase } from "../../src";
+import type { OptionsBase } from "../ConfigCatClientOptions.js";
+import { FormattableLogMessage, LogLevel } from "../ConfigCatLogger.js";
+import type { IConfigFetcher, IFetchResponse } from "../ConfigFetcher.js";
+import { FetchError } from "../ConfigFetcher.js";
 
-export class HttpConfigFetcher implements IConfigFetcher {
+export class NodeHttpConfigFetcher implements IConfigFetcher {
   private handleResponse(response: http.IncomingMessage, resolve: (value: IFetchResponse) => void, reject: (reason?: any) => void) {
     try {
       const { statusCode, statusMessage: reasonPhrase } = response as { statusCode: number; statusMessage: string };

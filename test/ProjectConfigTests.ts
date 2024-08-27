@@ -1,5 +1,4 @@
 import { assert } from "chai";
-import "mocha";
 import { Config, ProjectConfig } from "../src/ProjectConfig";
 
 describe("ProjectConfig", () => {

@@ -1,22 +1,22 @@
-import { AutoPollConfigService } from "./AutoPollConfigService";
-import type { IConfigCache } from "./ConfigCatCache";
-import type { ConfigCatClientOptions, OptionsBase, OptionsForPollingMode } from "./ConfigCatClientOptions";
-import { AutoPollOptions, LazyLoadOptions, ManualPollOptions, PollingMode } from "./ConfigCatClientOptions";
-import type { LoggerWrapper } from "./ConfigCatLogger";
-import type { IConfigFetcher } from "./ConfigFetcher";
-import type { IConfigService } from "./ConfigServiceBase";
-import { ClientCacheState, RefreshResult } from "./ConfigServiceBase";
-import type { IEventEmitter } from "./EventEmitter";
-import { OverrideBehaviour } from "./FlagOverrides";
-import type { HookEvents, Hooks, IProvidesHooks } from "./Hooks";
-import { LazyLoadConfigService } from "./LazyLoadConfigService";
-import { ManualPollConfigService } from "./ManualPollConfigService";
-import { getWeakRefStub, isWeakRefAvailable } from "./Polyfills";
-import type { IConfig, PercentageOption, ProjectConfig, Setting, SettingValue } from "./ProjectConfig";
-import type { IEvaluationDetails, IRolloutEvaluator, SettingTypeOf } from "./RolloutEvaluator";
-import { RolloutEvaluator, checkSettingsAvailable, evaluate, evaluateAll, evaluationDetailsFromDefaultValue, getTimestampAsDate, handleInvalidReturnValue, isAllowedValue } from "./RolloutEvaluator";
-import type { User } from "./User";
-import { errorToString, isArray, throwError } from "./Utils";
+import { AutoPollConfigService } from "./AutoPollConfigService.js";
+import type { IConfigCache } from "./ConfigCatCache.js";
+import type { ConfigCatClientOptions, OptionsBase, OptionsForPollingMode } from "./ConfigCatClientOptions.js";
+import { AutoPollOptions, LazyLoadOptions, ManualPollOptions, PollingMode } from "./ConfigCatClientOptions.js";
+import type { LoggerWrapper } from "./ConfigCatLogger.js";
+import type { IConfigFetcher } from "./ConfigFetcher.js";
+import type { IConfigService } from "./ConfigServiceBase.js";
+import { ClientCacheState, RefreshResult } from "./ConfigServiceBase.js";
+import type { IEventEmitter } from "./EventEmitter.js";
+import { OverrideBehaviour } from "./FlagOverrides.js";
+import type { HookEvents, Hooks, IProvidesHooks } from "./Hooks.js";
+import { LazyLoadConfigService } from "./LazyLoadConfigService.js";
+import { ManualPollConfigService } from "./ManualPollConfigService.js";
+import { getWeakRefStub, isWeakRefAvailable } from "./Polyfills.js";
+import type { IConfig, PercentageOption, ProjectConfig, Setting, SettingValue } from "./ProjectConfig.js";
+import type { IEvaluationDetails, IRolloutEvaluator, SettingTypeOf } from "./RolloutEvaluator.js";
+import { RolloutEvaluator, checkSettingsAvailable, evaluate, evaluateAll, evaluationDetailsFromDefaultValue, getTimestampAsDate, handleInvalidReturnValue, isAllowedValue } from "./RolloutEvaluator.js";
+import type { User } from "./User.js";
+import { errorToString, isArray, throwError } from "./Utils.js";
 
 /** ConfigCat SDK client. */
 export interface IConfigCatClient extends IProvidesHooks {
@@ -820,8 +820,7 @@ let registerForFinalization = function(client: ConfigCatClient, data: IFinalizat
   // If FinalizationRegistry is unavailable, we can't really track finalization.
   // (Although we could implement something which resembles finalization callbacks using a weak map + a timer,
   // since ConfigCatClientCache also needs to keep (weak) references to the created client instances,
-  // this hypothetical approach wouldn't work without a complete WeakRef polyfill,
-  // which is kind of impossible (for more details, see Polyfills.ts).
+  // this hypothetical approach wouldn't work without a complete WeakRef polyfill, which is kind of impossible.
   else {
     registerForFinalization = () => () => { /* Intentional no-op */ };
   }

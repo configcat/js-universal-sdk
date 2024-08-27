@@ -1,5 +1,4 @@
 import { assert } from "chai";
-import "mocha";
 import { IConfigCatLogger, LogEventId, LogLevel, LogMessage, LoggerWrapper } from "../src/ConfigCatLogger";
 
 describe("ConfigCatLogger", () => {

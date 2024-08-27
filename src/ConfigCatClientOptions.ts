@@ -1,17 +1,17 @@
-import type { IConfigCache, IConfigCatCache } from "./ConfigCatCache";
-import { ExternalConfigCache, InMemoryConfigCache } from "./ConfigCatCache";
-import type { IConfigCatLogger } from "./ConfigCatLogger";
-import { ConfigCatConsoleLogger, LoggerWrapper } from "./ConfigCatLogger";
-import { DefaultEventEmitter } from "./DefaultEventEmitter";
-import type { IEventEmitter } from "./EventEmitter";
-import { NullEventEmitter } from "./EventEmitter";
-import type { FlagOverrides } from "./FlagOverrides";
-import { sha1 } from "./Hash";
-import type { HookEvents, IProvidesHooks, SafeHooksWrapper } from "./Hooks";
-import { Hooks } from "./Hooks";
-import { getWeakRefStub, isWeakRefAvailable } from "./Polyfills";
-import { ProjectConfig } from "./ProjectConfig";
-import type { User } from "./User";
+import type { IConfigCache, IConfigCatCache } from "./ConfigCatCache.js";
+import { ExternalConfigCache, InMemoryConfigCache } from "./ConfigCatCache.js";
+import type { IConfigCatLogger } from "./ConfigCatLogger.js";
+import { ConfigCatConsoleLogger, LoggerWrapper } from "./ConfigCatLogger.js";
+import { DefaultEventEmitter } from "./DefaultEventEmitter.js";
+import type { IEventEmitter } from "./EventEmitter.js";
+import { NullEventEmitter } from "./EventEmitter.js";
+import type { FlagOverrides } from "./FlagOverrides.js";
+import { sha1 } from "./Hash.js";
+import type { HookEvents, IProvidesHooks, SafeHooksWrapper } from "./Hooks.js";
+import { Hooks } from "./Hooks.js";
+import { getWeakRefStub, isWeakRefAvailable } from "./Polyfills.js";
+import { ProjectConfig } from "./ProjectConfig.js";
+import type { User } from "./User.js";
 
 /** Specifies the supported polling modes. */
 export enum PollingMode {
@@ -120,10 +120,11 @@ export interface ILazyLoadingOptions extends IOptions {
   cacheTimeToLiveSeconds?: number;
 }
 
-export type OptionsForPollingMode<TMode extends PollingMode> =
+export type OptionsForPollingMode<TMode extends PollingMode | unknown> =
   TMode extends PollingMode.AutoPoll ? IAutoPollOptions :
   TMode extends PollingMode.ManualPoll ? IManualPollOptions :
   TMode extends PollingMode.LazyLoad ? ILazyLoadingOptions :
+  TMode extends undefined ? IAutoPollOptions :
   never;
 
 /* eslint-disable @typescript-eslint/no-inferrable-types */

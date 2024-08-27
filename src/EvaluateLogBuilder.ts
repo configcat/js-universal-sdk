@@ -1,7 +1,7 @@
-import { PrerequisiteFlagComparator, SegmentComparator, UserComparator } from "./ConfigJson";
-import type { PrerequisiteFlagCondition, SegmentCondition, Setting, SettingValue, TargetingRule, UserCondition, UserConditionUnion } from "./ProjectConfig";
-import { isAllowedValue } from "./RolloutEvaluator";
-import { formatStringList, isArray, isStringArray } from "./Utils";
+import { PrerequisiteFlagComparator, SegmentComparator, UserComparator } from "./ConfigJson.js";
+import type { PrerequisiteFlagCondition, SegmentCondition, Setting, SettingValue, TargetingRule, UserCondition, UserConditionUnion } from "./ProjectConfig.js";
+import { isAllowedValue } from "./RolloutEvaluator.js";
+import { formatStringList, isArray, isStringArray } from "./Utils.js";
 
 const invalidValuePlaceholder = "<invalid value>";
 const invalidNamePlaceholder = "<invalid name>";

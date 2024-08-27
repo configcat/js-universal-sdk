@@ -1,5 +1,4 @@
 import { assert } from "chai";
-import "mocha";
 import { IManualPollOptions, OverrideBehaviour, SettingValue, User, UserAttributeValue } from "../src";
 import { LogLevel, LoggerWrapper } from "../src/ConfigCatLogger";
 import { FlagOverrides, MapOverrideDataSource } from "../src/FlagOverrides";
@@ -7,7 +6,7 @@ import { RolloutEvaluator, evaluate, isAllowedValue } from "../src/RolloutEvalua
 import { errorToString } from "../src/Utils";
 import { CdnConfigLocation, LocalFileConfigLocation } from "./helpers/ConfigLocation";
 import { FakeLogger } from "./helpers/fakes";
-import { HttpConfigFetcher } from "./helpers/HttpConfigFetcher";
+import { platform } from "./helpers/platform";
 import { createClientWithManualPoll, sdkType, sdkVersion } from "./helpers/utils";
 
 describe("Setting evaluation (config v2)", () => {
@@ -80,7 +79,7 @@ describe("Setting evaluation (config v2)", () => {
 
       // https://app.configcat.com/v2/e7a75611-4256-49a5-9320-ce158755e3ba/08dbc325-7f69-4fd4-8af4-cf9f24ec8ac9/08dbc325-9b74-45cb-86d0-4d61c25af1aa/08dbc325-9ebd-4587-8171-88f76a3004cb
       const client = createClientWithManualPoll("configcat-sdk-1/JcPbCGl_1E-K9M-fJOyKyQ/JoGwdqJZQ0K2xDy7LnbyOg",
-        { sdkType, sdkVersion, configFetcher: new HttpConfigFetcher() }, options);
+        { sdkType, sdkVersion, configFetcher: platform().createConfigFetcher() }, options);
 
       try {
         await client.forceRefreshAsync();
@@ -145,7 +144,7 @@ describe("Setting evaluation (config v2)", () => {
 
       // https://app.configcat.com/v2/e7a75611-4256-49a5-9320-ce158755e3ba/08dbc325-7f69-4fd4-8af4-cf9f24ec8ac9/08dbc325-9b74-45cb-86d0-4d61c25af1aa/08dbc325-9ebd-4587-8171-88f76a3004cb
       const client = createClientWithManualPoll("configcat-sdk-1/JcPbCGl_1E-K9M-fJOyKyQ/JoGwdqJZQ0K2xDy7LnbyOg",
-        { sdkType, sdkVersion, configFetcher: new HttpConfigFetcher() }, options);
+        { sdkType, sdkVersion, configFetcher: platform().createConfigFetcher() }, options);
 
       try {
         await client.forceRefreshAsync();

@@ -1,5 +1,4 @@
 import { assert } from "chai";
-import "mocha";
 import { DataGovernance, OptionsBase } from "../src/ConfigCatClientOptions";
 import { FetchResult, IConfigFetcher, IFetchResponse } from "../src/ConfigFetcher";
 import type * as ConfigJson from "../src/ConfigJson";

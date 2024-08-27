@@ -1,5 +1,4 @@
 import { assert } from "chai";
-import "mocha";
 import { sha1, sha256 } from "../src/Hash";
 import { utf8Encode } from "../src/Utils";
 

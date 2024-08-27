@@ -1,6 +1,6 @@
-import type { LoggerWrapper } from "./ConfigCatLogger";
-import { ProjectConfig } from "./ProjectConfig";
-import { isPromiseLike } from "./Utils";
+import { LoggerWrapper } from "./ConfigCatLogger.js";
+import { ProjectConfig } from "./ProjectConfig.js";
+import { isPromiseLike } from "./Utils.js";
 
 /** Defines the interface used by the ConfigCat SDK to store and retrieve downloaded config data. */
 export interface IConfigCatCache {

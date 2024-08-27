@@ -1,4 +1,4 @@
-import type { IEventEmitter } from "./EventEmitter";
+import type { IEventEmitter } from "./EventEmitter.js";
 
 type Listener = { fn: (...args: any[]) => void; once?: boolean };
 type Listeners = Listener | Listener[] & { fn?: never };
@@ -21,8 +21,7 @@ export class DefaultEventEmitter implements IEventEmitter {
       throw new TypeError("Listener must be a function");
     }
 
-    // TODO: remove `as string` when updating to TypeScript 4.4 or newer (https://stackoverflow.com/a/64943542/8656352)
-    const listeners = this.events[eventName as string];
+    const listeners = this.events[eventName];
     const listener: Listener = { fn, once };
 
     if (!listeners) {

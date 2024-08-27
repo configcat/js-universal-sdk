@@ -1,5 +1,4 @@
 import { assert, expect } from "chai";
-import "mocha";
 import { AutoPollConfigService } from "../src/AutoPollConfigService";
 import { IConfigCache } from "../src/ConfigCatCache";
 import { ConfigCatClient, IConfigCatClient, IConfigCatKernel } from "../src/ConfigCatClient";

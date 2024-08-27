@@ -1,5 +1,5 @@
-import type { OptionsBase } from "./ConfigCatClientOptions";
-import type { ProjectConfig } from "./ProjectConfig";
+import type { OptionsBase } from "./ConfigCatClientOptions.js";
+import type { ProjectConfig } from "./ProjectConfig.js";
 
 export enum FetchStatus {
   Fetched = 0,
