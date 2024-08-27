@@ -71,6 +71,8 @@ export { ExternalConfigCache, InMemoryConfigCache } from "./ConfigCatCache.js";
 
 export type { IEventEmitter, IEventProvider } from "./EventEmitter.js";
 
+export { LocalStorageCache } from "./browser/LocalStorageCache.js";
+
 export { XmlHttpRequestConfigFetcher } from "./browser/XmlHttpRequestConfigFetcher.js";
 
 export { FetchApiConfigFetcher } from "./shared/FetchApiConfigFetcher.js";

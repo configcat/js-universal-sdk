@@ -128,7 +128,19 @@ if (value) {
 ```
 
 ## Sample/Demo apps
-  - TODO
+  - [Sample Node.js console application](https://github.com/configcat/js-universal-sdk/tree/master/samples/node-console)
+  - [Sample Node.js console application using ECMAScript module system](https://github.com/configcat/js-universal-sdk/tree/master/samples/node-console-esm)
+  - [Sample Node.js console application using TypeScript](https://github.com/configcat/js-universal-sdk/tree/master/samples/ts-node-console)
+  - [Sample Node.js console application using TypeScript and ECMAScript module system](https://github.com/configcat/js-universal-sdk/tree/master/samples/ts-node-console-esm)
+  - [Sample Node.js application using Express and Docker](https://github.com/configcat/js-universal-sdk/tree/master/samples/node-expresswithdocker)
+  - [Sample Node.js application on how to get real time updates on feature flag changes](https://github.com/configcat/js-universal-sdk/tree/master/samples/node-realtimeupdate)
+  - [Plain HTML + JS](https://github.com/configcat/js-universal-sdk/tree/master/samples/html)
+  - [Plain HTML + JS using ECMAScript module system](https://github.com/configcat/js-universal-sdk/tree/master/samples/html-esm)
+  - [Sample Angular web application](https://github.com/configcat/js-universal-sdk/tree/master/samples/angular-sample)
+  - [Sample React web application](https://github.com/configcat/js-universal-sdk/tree/master/samples/react-sample)
+  - [Sample React Native application](https://github.com/configcat/js-universal-sdk/tree/master/samples/react-native-sample)
+  - [Sample Vue SSR web application](https://github.com/configcat/js-universal-sdk/tree/master/samples/vue-ssr-sample)
+  - [Sample Chrome Extension](https://github.com/configcat/js-universal-sdk/tree/master/samples/chrome-extension)
 
 ## Polling Modes
 
@@ -151,19 +163,19 @@ Currently the `@configcat/sdk` NPM package includes the following builds of the 
    - Targets ES5 and includes all required polyfills.
    - TypeScript type definitions are not provided.
 * `dist/configcat.browser.esm.min.js` - for referencing the library in newer browsers via HTML script tag:
-  - Uses the standard ES module format.
+  - Uses the standard ECMAScript module format.
   - Targets ES2015 and includes all required polyfills.
   - TypeScript type definitions are not provided.
 * `dist/configcat.chromium-extension.esm.js` - for referencing the library in Chromium-based browser extensions via HTML script tag:
-  - Uses the standard ES module format.
+  - Uses the standard ECMAScript module format.
   - Targets ES2017 and includes all required polyfills.
   - TypeScript type definitions are not provided.
 * `lib/cjs/` - for older versions of Node.js:
-  - Uses the legacy Common JS module format.
+  - Uses the legacy CommonJS module format.
   - Targets ES2017 and includes all required polyfills except for the `Promise` feature. 
   - TypeScript type definitions are provided.
 * `lib/esm/` - for modern versions of Node.js and bundlers:
-  - Uses the standard ES modules format.
+  - Uses the standard ECMAScript module format.
   - Targets ES2017  and includes all required polyfills except for the `Promise` feature.
   - TypeScript type definitions are provided.
 

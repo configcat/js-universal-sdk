@@ -60,4 +60,4 @@ typings/
 lib/
 dist/
 .idea/
-
+.parcel-cache/
