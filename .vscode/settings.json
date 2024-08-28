@@ -1,6 +1,5 @@
 {
   "editor.rulers": [160],
-  "typescript.preferences.importModuleSpecifierEnding": "js",
   "[typescript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },

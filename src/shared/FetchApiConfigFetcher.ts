@@ -1,6 +1,6 @@
-import type { OptionsBase } from "../ConfigCatClientOptions.js";
-import type { IConfigFetcher, IFetchResponse } from "../ConfigFetcher.js";
-import { FetchError } from "../ConfigFetcher.js";
+import type { OptionsBase } from "../ConfigCatClientOptions";
+import type { IConfigFetcher, IFetchResponse } from "../ConfigFetcher";
+import { FetchError } from "../ConfigFetcher";
 
 export class FetchApiConfigFetcher implements IConfigFetcher {
   async fetchLogic(options: OptionsBase, lastEtag: string | null): Promise<IFetchResponse> {

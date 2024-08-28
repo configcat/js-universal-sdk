@@ -1,14 +1,14 @@
-import type { LoggerWrapper } from "./ConfigCatLogger.js";
-import { LogLevel } from "./ConfigCatLogger.js";
-import { PrerequisiteFlagComparator, SegmentComparator, SettingType, UserComparator } from "./ConfigJson.js";
-import { EvaluateLogBuilder, formatSegmentComparator, formatUserCondition, valueToString } from "./EvaluateLogBuilder.js";
-import { sha1, sha256 } from "./Hash.js";
-import type { ConditionUnion, IPercentageOption, ITargetingRule, PercentageOption, PrerequisiteFlagCondition, ProjectConfig, SegmentCondition, Setting, SettingValue, SettingValueContainer, TargetingRule, UserConditionUnion, VariationIdValue } from "./ProjectConfig.js";
-import type { ISemVer } from "./Semver.js";
-import { parse as parseSemVer } from "./Semver.js";
-import type { User, UserAttributeValue, WellKnownUserObjectAttribute } from "./User.js";
-import { getUserAttribute, getUserAttributes } from "./User.js";
-import { errorToString, formatStringList, isArray, isStringArray, parseFloatStrict, utf8Encode } from "./Utils.js";
+import type { LoggerWrapper } from "./ConfigCatLogger";
+import { LogLevel } from "./ConfigCatLogger";
+import { PrerequisiteFlagComparator, SegmentComparator, SettingType, UserComparator } from "./ConfigJson";
+import { EvaluateLogBuilder, formatSegmentComparator, formatUserCondition, valueToString } from "./EvaluateLogBuilder";
+import { sha1, sha256 } from "./Hash";
+import type { ConditionUnion, IPercentageOption, ITargetingRule, PercentageOption, PrerequisiteFlagCondition, ProjectConfig, SegmentCondition, Setting, SettingValue, SettingValueContainer, TargetingRule, UserConditionUnion, VariationIdValue } from "./ProjectConfig";
+import type { ISemVer } from "./Semver";
+import { parse as parseSemVer } from "./Semver";
+import type { User, UserAttributeValue, WellKnownUserObjectAttribute } from "./User";
+import { getUserAttribute, getUserAttributes } from "./User";
+import { errorToString, formatStringList, isArray, isStringArray, parseFloatStrict, utf8Encode } from "./Utils";
 
 export class EvaluateContext {
   private $visitedFlags?: string[];

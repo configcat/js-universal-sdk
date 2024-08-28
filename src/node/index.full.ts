@@ -1,2 +1,2 @@
-export * as Internals from "../index.pubternals.js";
-export * from "./index.js";
+export * as Internals from "../index.pubternals";
+export * from ".";

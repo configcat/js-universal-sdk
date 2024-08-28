@@ -1,6 +1,6 @@
-import type * as ConfigJson from "./ConfigJson.js";
-import type { PrerequisiteFlagComparator, RedirectMode, SegmentComparator, SettingType, UserComparator } from "./ConfigJson.js";
-import type { WellKnownUserObjectAttribute } from "./User.js";
+import type * as ConfigJson from "./ConfigJson";
+import type { PrerequisiteFlagComparator, RedirectMode, SegmentComparator, SettingType, UserComparator } from "./ConfigJson";
+import type { WellKnownUserObjectAttribute } from "./User";
 
 export class ProjectConfig {
   static readonly serializationFormatVersion = "v2";

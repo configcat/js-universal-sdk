@@ -1,22 +1,22 @@
-import { AutoPollConfigService } from "./AutoPollConfigService.js";
-import type { IConfigCache } from "./ConfigCatCache.js";
-import type { ConfigCatClientOptions, OptionsBase, OptionsForPollingMode } from "./ConfigCatClientOptions.js";
-import { AutoPollOptions, LazyLoadOptions, ManualPollOptions, PollingMode } from "./ConfigCatClientOptions.js";
-import type { LoggerWrapper } from "./ConfigCatLogger.js";
-import type { IConfigFetcher } from "./ConfigFetcher.js";
-import type { IConfigService } from "./ConfigServiceBase.js";
-import { ClientCacheState, RefreshResult } from "./ConfigServiceBase.js";
-import type { IEventEmitter } from "./EventEmitter.js";
-import { OverrideBehaviour } from "./FlagOverrides.js";
-import type { HookEvents, Hooks, IProvidesHooks } from "./Hooks.js";
-import { LazyLoadConfigService } from "./LazyLoadConfigService.js";
-import { ManualPollConfigService } from "./ManualPollConfigService.js";
-import { getWeakRefStub, isWeakRefAvailable } from "./Polyfills.js";
-import type { IConfig, PercentageOption, ProjectConfig, Setting, SettingValue } from "./ProjectConfig.js";
-import type { IEvaluationDetails, IRolloutEvaluator, SettingTypeOf } from "./RolloutEvaluator.js";
-import { RolloutEvaluator, checkSettingsAvailable, evaluate, evaluateAll, evaluationDetailsFromDefaultValue, getTimestampAsDate, handleInvalidReturnValue, isAllowedValue } from "./RolloutEvaluator.js";
-import type { User } from "./User.js";
-import { errorToString, isArray, throwError } from "./Utils.js";
+import { AutoPollConfigService } from "./AutoPollConfigService";
+import type { IConfigCache } from "./ConfigCatCache";
+import type { ConfigCatClientOptions, OptionsBase, OptionsForPollingMode } from "./ConfigCatClientOptions";
+import { AutoPollOptions, LazyLoadOptions, ManualPollOptions, PollingMode } from "./ConfigCatClientOptions";
+import type { LoggerWrapper } from "./ConfigCatLogger";
+import type { IConfigFetcher } from "./ConfigFetcher";
+import type { IConfigService } from "./ConfigServiceBase";
+import { ClientCacheState, RefreshResult } from "./ConfigServiceBase";
+import type { IEventEmitter } from "./EventEmitter";
+import { OverrideBehaviour } from "./FlagOverrides";
+import type { HookEvents, Hooks, IProvidesHooks } from "./Hooks";
+import { LazyLoadConfigService } from "./LazyLoadConfigService";
+import { ManualPollConfigService } from "./ManualPollConfigService";
+import { getWeakRefStub, isWeakRefAvailable } from "./Polyfills";
+import type { IConfig, PercentageOption, ProjectConfig, Setting, SettingValue } from "./ProjectConfig";
+import type { IEvaluationDetails, IRolloutEvaluator, SettingTypeOf } from "./RolloutEvaluator";
+import { RolloutEvaluator, checkSettingsAvailable, evaluate, evaluateAll, evaluationDetailsFromDefaultValue, getTimestampAsDate, handleInvalidReturnValue, isAllowedValue } from "./RolloutEvaluator";
+import type { User } from "./User";
+import { errorToString, isArray, throwError } from "./Utils";
 
 /** ConfigCat SDK client. */
 export interface IConfigCatClient extends IProvidesHooks {

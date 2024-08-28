@@ -1,4 +1,4 @@
-import { utf8Encode } from "./Utils.js";
+import { utf8Encode } from "./Utils";
 
 export function sha1(msg: string) {
   function rotate_left(n: number, s: number) {

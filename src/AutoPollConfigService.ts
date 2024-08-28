@@ -1,10 +1,10 @@
-import type { AutoPollOptions } from "./ConfigCatClientOptions.js";
-import type { LoggerWrapper } from "./ConfigCatLogger.js";
-import type { IConfigFetcher } from "./ConfigFetcher.js";
-import type { IConfigService, RefreshResult } from "./ConfigServiceBase.js";
-import { ClientCacheState, ConfigServiceBase } from "./ConfigServiceBase.js";
-import type { ProjectConfig } from "./ProjectConfig.js";
-import { delay } from "./Utils.js";
+import type { AutoPollOptions } from "./ConfigCatClientOptions";
+import type { LoggerWrapper } from "./ConfigCatLogger";
+import type { IConfigFetcher } from "./ConfigFetcher";
+import type { IConfigService, RefreshResult } from "./ConfigServiceBase";
+import { ClientCacheState, ConfigServiceBase } from "./ConfigServiceBase";
+import type { ProjectConfig } from "./ProjectConfig";
+import { delay } from "./Utils";
 
 export class AutoPollConfigService extends ConfigServiceBase<AutoPollOptions> implements IConfigService {
 

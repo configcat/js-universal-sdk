@@ -1,6 +1,6 @@
-import { createConsoleLogger, getClient } from "src/index.pubternals.ts";
-import { LogLevel, PollingMode, User } from "src/index.ts";
-import { FetchApiConfigFetcher } from "src/shared/FetchApiConfigFetcher.ts";
+import { createConsoleLogger, getClient } from "../../lib/esm/index.pubternals.js";
+import { LogLevel, PollingMode, User } from "../../lib/esm/index.js";
+import { FetchApiConfigFetcher } from "../../lib/esm/shared/FetchApiConfigFetcher.js";
 
 // Creating the ConfigCat client instance using the SDK Key
 const client = getClient(

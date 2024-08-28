@@ -1,6 +1,6 @@
-import type { OptionsBase } from "../ConfigCatClientOptions.js";
-import type { IConfigFetcher, IFetchResponse } from "../ConfigFetcher.js";
-import { FetchError } from "../ConfigFetcher.js";
+import type { OptionsBase } from "../ConfigCatClientOptions";
+import type { IConfigFetcher, IFetchResponse } from "../ConfigFetcher";
+import { FetchError } from "../ConfigFetcher";
 
 export class XmlHttpRequestConfigFetcher implements IConfigFetcher {
   private handleStateChange(httpRequest: XMLHttpRequest, resolve: (value: IFetchResponse) => void, reject: (reason?: any) => void) {

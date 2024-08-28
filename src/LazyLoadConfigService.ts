@@ -1,9 +1,9 @@
-import type { LazyLoadOptions } from "./ConfigCatClientOptions.js";
-import type { LoggerWrapper } from "./ConfigCatLogger.js";
-import type { IConfigFetcher } from "./ConfigFetcher.js";
-import type { IConfigService, RefreshResult } from "./ConfigServiceBase.js";
-import { ClientCacheState, ConfigServiceBase } from "./ConfigServiceBase.js";
-import type { ProjectConfig } from "./ProjectConfig.js";
+import type { LazyLoadOptions } from "./ConfigCatClientOptions";
+import type { LoggerWrapper } from "./ConfigCatLogger";
+import type { IConfigFetcher } from "./ConfigFetcher";
+import type { IConfigService, RefreshResult } from "./ConfigServiceBase";
+import { ClientCacheState, ConfigServiceBase } from "./ConfigServiceBase";
+import type { ProjectConfig } from "./ProjectConfig";
 
 export class LazyLoadConfigService extends ConfigServiceBase<LazyLoadOptions> implements IConfigService {
 

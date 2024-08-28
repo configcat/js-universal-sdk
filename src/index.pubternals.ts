@@ -1,11 +1,11 @@
-import { ConfigCatClient } from "./ConfigCatClient.js";
-import type { IConfigCatClient, IConfigCatKernel } from "./ConfigCatClient.js";
-import type { OptionsForPollingMode, PollingMode } from "./ConfigCatClientOptions.js";
-import type { IConfigCatLogger, LogLevel } from "./ConfigCatLogger.js";
-import { ConfigCatConsoleLogger } from "./ConfigCatLogger.js";
-import type { OverrideBehaviour } from "./FlagOverrides.js";
-import { FlagOverrides, MapOverrideDataSource } from "./FlagOverrides.js";
-import type { SettingValue } from "./ProjectConfig.js";
+import { ConfigCatClient } from "./ConfigCatClient";
+import type { IConfigCatClient, IConfigCatKernel } from "./ConfigCatClient";
+import type { OptionsForPollingMode, PollingMode } from "./ConfigCatClientOptions";
+import type { IConfigCatLogger, LogLevel } from "./ConfigCatLogger";
+import { ConfigCatConsoleLogger } from "./ConfigCatLogger";
+import type { OverrideBehaviour } from "./FlagOverrides";
+import { FlagOverrides, MapOverrideDataSource } from "./FlagOverrides";
+import type { SettingValue } from "./ProjectConfig";
 
 // The exports in this module are also exposed on the public API surface but not intended for end users.
 // Backward compatibility is not guaranteed.
@@ -59,20 +59,20 @@ export function createFlagOverridesFromMap(map: { [name: string]: NonNullable<Se
 
 export type { IConfigCatKernel };
 
-export type { FetchErrorCauses, IConfigFetcher, IFetchResponse } from "./ConfigFetcher.js";
+export type { FetchErrorCauses, IConfigFetcher, IFetchResponse } from "./ConfigFetcher";
 
-export { FetchError, FetchResult, FetchStatus } from "./ConfigFetcher.js";
+export { FetchError, FetchResult, FetchStatus } from "./ConfigFetcher";
 
-export type { OptionsBase } from "./ConfigCatClientOptions.js";
+export type { OptionsBase } from "./ConfigCatClientOptions";
 
-export type { IConfigCache } from "./ConfigCatCache.js";
+export type { IConfigCache } from "./ConfigCatCache";
 
-export { ExternalConfigCache, InMemoryConfigCache } from "./ConfigCatCache.js";
+export { ExternalConfigCache, InMemoryConfigCache } from "./ConfigCatCache";
 
-export type { IEventEmitter, IEventProvider } from "./EventEmitter.js";
+export type { IEventEmitter, IEventProvider } from "./EventEmitter";
 
-export { LocalStorageCache } from "./browser/LocalStorageCache.js";
+export { LocalStorageCache } from "./browser/LocalStorageCache";
 
-export { XmlHttpRequestConfigFetcher } from "./browser/XmlHttpRequestConfigFetcher.js";
+export { XmlHttpRequestConfigFetcher } from "./browser/XmlHttpRequestConfigFetcher";
 
-export { FetchApiConfigFetcher } from "./shared/FetchApiConfigFetcher.js";
+export { FetchApiConfigFetcher } from "./shared/FetchApiConfigFetcher";

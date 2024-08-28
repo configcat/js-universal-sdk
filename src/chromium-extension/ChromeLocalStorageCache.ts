@@ -1,6 +1,6 @@
-import type { IConfigCatCache } from "../ConfigCatCache.js";
-import { ExternalConfigCache } from "../ConfigCatCache.js";
-import type { IConfigCatKernel } from "../ConfigCatClient.js";
+import type { IConfigCatCache } from "../ConfigCatCache";
+import { ExternalConfigCache } from "../ConfigCatCache";
+import type { IConfigCatKernel } from "../ConfigCatClient";
 
 export class ChromeLocalStorageCache implements IConfigCatCache {
   static setup(kernel: IConfigCatKernel, localStorageGetter?: () => chrome.storage.LocalStorageArea | null): IConfigCatKernel {

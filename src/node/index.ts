@@ -1,9 +1,9 @@
-import type { IConfigCatClient } from "../ConfigCatClient.js";
-import type { IAutoPollOptions, ILazyLoadingOptions, IManualPollOptions } from "../ConfigCatClientOptions.js";
-import { PollingMode } from "../ConfigCatClientOptions.js";
-import { getClient as getClientCommon } from "../index.pubternals.js";
-import CONFIGCAT_SDK_VERSION from "../Version.js";
-import { NodeHttpConfigFetcher } from "./NodeHttpConfigFetcher.js";
+import type { IConfigCatClient } from "../ConfigCatClient";
+import type { IAutoPollOptions, ILazyLoadingOptions, IManualPollOptions } from "../ConfigCatClientOptions";
+import { PollingMode } from "../ConfigCatClientOptions";
+import { getClient as getClientCommon } from "../index.pubternals";
+import CONFIGCAT_SDK_VERSION from "../Version";
+import { NodeHttpConfigFetcher } from "./NodeHttpConfigFetcher";
 
 /**
  * Returns an instance of `ConfigCatClient` for the specified SDK Key.
@@ -24,7 +24,7 @@ export function getClient<TMode extends PollingMode | undefined>(sdkKey: string,
     });
 }
 
-export { createConsoleLogger, createFlagOverridesFromMap, disposeAllClients } from "../index.pubternals.js";
+export { createConsoleLogger, createFlagOverridesFromMap, disposeAllClients } from "../index.pubternals";
 
 /** Options used to configure the ConfigCat SDK in the case of Auto Polling mode. */
 export interface INodeAutoPollOptions extends IAutoPollOptions {
@@ -45,5 +45,5 @@ export type OptionsForPollingMode<TMode extends PollingMode | undefined> =
   TMode extends undefined ? INodeAutoPollOptions :
   never;
 
-export * from "../index.js";
+export * from "..";
 

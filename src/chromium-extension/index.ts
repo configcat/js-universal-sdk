@@ -1,11 +1,11 @@
-import type { IConfigCatClient } from "../ConfigCatClient.js";
-import type { IAutoPollOptions, ILazyLoadingOptions, IManualPollOptions } from "../ConfigCatClientOptions.js";
-import { PollingMode } from "../ConfigCatClientOptions.js";
-import { getClient as getClientCommon } from "../index.pubternals.js";
-import { setupPolyfills } from "../Polyfills.js";
-import { FetchApiConfigFetcher } from "../shared/FetchApiConfigFetcher.js";
-import CONFIGCAT_SDK_VERSION from "../Version.js";
-import { ChromeLocalStorageCache } from "./ChromeLocalStorageCache.js";
+import type { IConfigCatClient } from "../ConfigCatClient";
+import type { IAutoPollOptions, ILazyLoadingOptions, IManualPollOptions } from "../ConfigCatClientOptions";
+import { PollingMode } from "../ConfigCatClientOptions";
+import { getClient as getClientCommon } from "../index.pubternals";
+import { setupPolyfills } from "../Polyfills";
+import { FetchApiConfigFetcher } from "../shared/FetchApiConfigFetcher";
+import CONFIGCAT_SDK_VERSION from "../Version";
+import { ChromeLocalStorageCache } from "./ChromeLocalStorageCache";
 
 setupPolyfills();
 
@@ -28,7 +28,7 @@ export function getClient<TMode extends PollingMode | undefined>(sdkKey: string,
     }));
 }
 
-export { createConsoleLogger, createFlagOverridesFromMap, disposeAllClients } from "../index.pubternals.js";
+export { createConsoleLogger, createFlagOverridesFromMap, disposeAllClients } from "../index.pubternals";
 
 /** Options used to configure the ConfigCat SDK in the case of Auto Polling mode. */
 export interface IJSAutoPollOptions extends IAutoPollOptions {
@@ -49,5 +49,5 @@ export type OptionsForPollingMode<TMode extends PollingMode | undefined> =
     TMode extends undefined ? IJSAutoPollOptions :
     never;
 
-export * from "../index.js";
+export * from "..";
 

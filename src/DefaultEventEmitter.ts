@@ -1,4 +1,4 @@
-import type { IEventEmitter } from "./EventEmitter.js";
+import type { IEventEmitter } from "./EventEmitter";
 
 type Listener = { fn: (...args: any[]) => void; once?: boolean };
 type Listeners = Listener | Listener[] & { fn?: never };
