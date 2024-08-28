@@ -37,7 +37,7 @@
   },
   "scripts": {
     "build": "gulp",
-    "coverage": "nyc --report-dir coverage/node npm run test:node:indirect & cross-env TEST_BROWSER_COVERAGE=true npm run test:browser:chrome & cross-env TEST_CHROMIUM_EXTENSION_COVERAGE=true npm run test:chromium-extension:chrome & lcov-result-merger './coverage/*/**/lcov.info' './coverage/lcov.info' --legacy-temp-file",
+    "coverage": "nyc --report-dir coverage/node npm run test:node:indirect && cross-env TEST_BROWSER_COVERAGE=true npm run test:browser:chrome && cross-env TEST_CHROMIUM_EXTENSION_COVERAGE=true npm run test:chromium-extension:chrome && lcov-result-merger './coverage/*/**/lcov.info' './coverage/lcov.info'",
     "lint:fix": "eslint . --ext .ts --fix",
     "lint": "eslint . --ext .ts",
     "prepare": "npm run build",
@@ -48,7 +48,7 @@
     "test:chromium-extension:chromium": "karma start karma.chromium-extension.chromium.conf.js",
     "test:node": "cross-env NODE_EXTRA_CA_CERTS=./test/node/cert/testCA.pem TS_NODE_PROJECT=./tsconfig.mocha.node.json node --expose-gc --require ts-node/register node_modules/mocha/bin/_mocha 'test/node/index.ts' --exit --timeout 30000",
     "test:node:indirect": "npm run test:node",
-    "test": "npm run test:node & npm run test:browser:chrome & npm run test:chromium-extension:chrome"
+    "test": "npm run test:node && npm run test:browser:chrome && npm run test:chromium-extension:chrome"
   },
   "keywords": [
     "configcat",
