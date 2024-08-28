@@ -196,6 +196,12 @@ jobs:
         
       - name: Test
         run: npm run coverage
+
+      - name: Upload coverage report
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: coverage
         
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
