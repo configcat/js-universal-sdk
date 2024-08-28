@@ -37,7 +37,7 @@
   },
   "scripts": {
     "build": "gulp",
-    "coverage": "nyc --report-dir coverage/node npm run test:node:indirect & cross-env TEST_BROWSER_COVERAGE=true npm run test:browser:chrome & cross-env TEST_CHROMIUM_EXTENSION_COVERAGE=true npm run test:chromium-extension:chrome & lcov-result-merger './coverage/*/**/lcov.info' './coverage/lcov.info'",
+    "coverage": "nyc --report-dir coverage/node npm run test:node:indirect & cross-env TEST_BROWSER_COVERAGE=true npm run test:browser:chrome & cross-env TEST_CHROMIUM_EXTENSION_COVERAGE=true npm run test:chromium-extension:chrome & lcov-result-merger './coverage/*/**/lcov.info' './coverage/lcov.info' --legacy-temp-file",
     "lint:fix": "eslint . --ext .ts --fix",
     "lint": "eslint . --ext .ts",
     "prepare": "npm run build",
