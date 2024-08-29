@@ -1,8 +1,8 @@
 import { assert } from "chai";
 import fetchMock from "fetch-mock";
-import { LogLevel } from "#lib";
 import { FakeLogger } from "../helpers/fakes";
 import { createClientWithManualPoll } from ".";
+import { LogLevel } from "#lib";
 
 describe("HTTP tests", () => {
   const sdkKey = "PKDVCLf-Hq-h-kCzMp-L7Q/psuH7BGHoUmdONrzzUOY7A";

@@ -1,3 +1,4 @@
+import { initPlatform } from "../helpers/platform";
 import { getClient } from "#lib/chromium-extension";
 import type { IConfigCatClient, IJSAutoPollOptions, IJSLazyLoadingOptions, IJSManualPollOptions } from "#lib/chromium-extension";
 import { ChromeLocalStorageCache } from "#lib/chromium-extension/ChromeLocalStorageCache";
@@ -5,7 +6,6 @@ import { ConfigCatClient } from "#lib/ConfigCatClient";
 import { AutoPollOptions, LazyLoadOptions, ManualPollOptions } from "#lib/ConfigCatClientOptions";
 import type { IConfigCatKernel, IConfigFetcher } from "#lib/index.pubternals";
 import { FetchApiConfigFetcher } from "#lib/shared/FetchApiConfigFetcher";
-import { initPlatform } from "../helpers/platform";
 
 const sdkVersion = "0.0.0-test";
 const sdkType = "ConfigCat-JS-Chromium";

@@ -1,3 +1,4 @@
+import { initPlatform } from "../helpers/platform";
 import { getClient } from "#lib/browser";
 import type { IConfigCatClient, IJSAutoPollOptions, IJSLazyLoadingOptions, IJSManualPollOptions } from "#lib/browser";
 import { LocalStorageCache } from "#lib/browser/LocalStorageCache";
@@ -5,7 +6,6 @@ import { XmlHttpRequestConfigFetcher } from "#lib/browser/XmlHttpRequestConfigFe
 import { ConfigCatClient } from "#lib/ConfigCatClient";
 import { AutoPollOptions, LazyLoadOptions, ManualPollOptions } from "#lib/ConfigCatClientOptions";
 import type { IConfigCatKernel, IConfigFetcher } from "#lib/index.pubternals";
-import { initPlatform } from "../helpers/platform";
 
 const sdkVersion = "0.0.0-test";
 const sdkType = "ConfigCat-JS";

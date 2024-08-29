@@ -1,14 +1,14 @@
 import { assert } from "chai";
+import { CdnConfigLocation, ConfigLocation, LocalFileConfigLocation } from "./helpers/ConfigLocation";
+import { FakeLogger } from "./helpers/fakes";
+import { platform } from "./helpers/platform";
+import { normalizeLineEndings } from "./helpers/utils";
 import { User } from "#lib";
 import { LogLevel, LoggerWrapper } from "#lib/ConfigCatLogger";
 import { SettingValue } from "#lib/ProjectConfig";
 import { RolloutEvaluator, evaluate } from "#lib/RolloutEvaluator";
 import { WellKnownUserObjectAttribute } from "#lib/User";
 import { errorToString } from "#lib/Utils";
-import { CdnConfigLocation, ConfigLocation, LocalFileConfigLocation } from "./helpers/ConfigLocation";
-import { FakeLogger } from "./helpers/fakes";
-import { platform } from "./helpers/platform";
-import { normalizeLineEndings } from "./helpers/utils";
 
 const testDataBasePath = () => platform().pathJoin("test", "data", "evaluationlog");
 

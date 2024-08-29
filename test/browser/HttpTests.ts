@@ -1,8 +1,8 @@
 import { assert } from "chai";
 import * as mockxmlhttprequest from "mock-xmlhttprequest";
-import { LogLevel } from "#lib";
 import { FakeLogger } from "../helpers/fakes";
 import { createClientWithManualPoll } from ".";
+import { LogLevel } from "#lib";
 
 describe("HTTP tests", () => {
   const sdkKey = "configcat-sdk-1/PKDVCLf-Hq-h-kCzMp-L7Q/AG6C1ngVb0CvM07un6JisQ";

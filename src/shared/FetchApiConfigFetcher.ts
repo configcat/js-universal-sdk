@@ -26,7 +26,7 @@ export class FetchApiConfigFetcher implements IConfigFetcher {
       }
       // NOTE: It's intentional that we don't specify the If-None-Match header.
       // The browser automatically handles it, adding it manually would cause an unnecessary CORS OPTIONS request.
-      // In case the browser doesn't handle it, we are transforming the ccetag query parameter to the If-None-Match header 
+      // In case the browser doesn't handle it, we are transforming the ccetag query parameter to the If-None-Match header
       const response = await fetch(url, requestInit);
 
       const { status: statusCode, statusText: reasonPhrase } = response;

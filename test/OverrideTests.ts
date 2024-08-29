@@ -1,11 +1,11 @@
 import { assert, expect } from "chai";
+import { FakeConfigCatKernel, FakeConfigFetcherBase, FakeConfigFetcherWithNullNewConfig } from "./helpers/fakes";
 import { SettingKeyValue } from "#lib";
 import { ConfigCatClient, IConfigCatClient, IConfigCatKernel } from "#lib/ConfigCatClient";
 import { AutoPollOptions, ManualPollOptions } from "#lib/ConfigCatClientOptions";
 import { MapOverrideDataSource, OverrideBehaviour } from "#lib/FlagOverrides";
 import { SettingValue } from "#lib/ProjectConfig";
 import { isAllowedValue } from "#lib/RolloutEvaluator";
-import { FakeConfigCatKernel, FakeConfigFetcherBase, FakeConfigFetcherWithNullNewConfig } from "./helpers/fakes";
 
 describe("Local Overrides", () => {
   it("Values from map - LocalOnly", async () => {

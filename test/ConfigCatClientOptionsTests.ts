@@ -1,9 +1,9 @@
 import { assert, expect } from "chai";
+import { FakeExternalCache } from "./helpers/fakes";
 import { ExternalConfigCache, IConfigCache, InMemoryConfigCache } from "#lib/ConfigCatCache";
 import { AutoPollOptions, LazyLoadOptions, ManualPollOptions, OptionsBase } from "#lib/ConfigCatClientOptions";
 import { ConfigCatConsoleLogger, IConfigCatLogger, LogEventId, LogLevel, LogMessage, LoggerWrapper } from "#lib/ConfigCatLogger";
 import { ProjectConfig } from "#lib/ProjectConfig";
-import { FakeExternalCache } from "./helpers/fakes";
 
 describe("Options", () => {
 

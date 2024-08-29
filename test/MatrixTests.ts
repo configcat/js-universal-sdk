@@ -1,11 +1,11 @@
 import { assert } from "chai";
+import { CdnConfigLocation, ConfigLocation } from "./helpers/ConfigLocation";
+import { platform } from "./helpers/platform";
 import { LogLevel, SettingType, SettingValue, User } from "#lib";
 import { LoggerWrapper } from "#lib/ConfigCatLogger";
 import { createConsoleLogger } from "#lib/index.pubternals";
 import { RolloutEvaluator, evaluate } from "#lib/RolloutEvaluator";
 import { getUserAttributes } from "#lib/User";
-import { CdnConfigLocation, ConfigLocation } from "./helpers/ConfigLocation";
-import { platform } from "./helpers/platform";
 
 const testDataBasePath = platform().pathJoin("test", "data");
 

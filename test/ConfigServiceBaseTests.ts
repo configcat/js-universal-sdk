@@ -1,6 +1,7 @@
 import { assert } from "chai";
 import { EqualMatchingInjectorConfig, It, Mock, RejectedPromiseFactory, ResolvedPromiseFactory, Times } from "moq.ts";
 import { MimicsRejectedAsyncPresetFactory, MimicsResolvedAsyncPresetFactory, Presets, ReturnsAsyncPresetFactory, RootMockProvider, ThrowsAsyncPresetFactory } from "moq.ts/internal";
+import { FakeCache } from "./helpers/fakes";
 import { AutoPollConfigService } from "#lib/AutoPollConfigService";
 import { IConfigCache, InMemoryConfigCache } from "#lib/ConfigCatCache";
 import { AutoPollOptions, LazyLoadOptions, ManualPollOptions, OptionsBase } from "#lib/ConfigCatClientOptions";
@@ -9,7 +10,6 @@ import { LazyLoadConfigService } from "#lib/LazyLoadConfigService";
 import { ManualPollConfigService } from "#lib/ManualPollConfigService";
 import { Config, ProjectConfig } from "#lib/ProjectConfig";
 import { delay } from "#lib/Utils";
-import { FakeCache } from "./helpers/fakes";
 
 describe("ConfigServiceBaseTests", () => {
 

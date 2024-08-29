@@ -1,4 +1,4 @@
-import { LoggerWrapper } from "./ConfigCatLogger";
+import type { LoggerWrapper } from "./ConfigCatLogger";
 import { ProjectConfig } from "./ProjectConfig";
 import { isPromiseLike } from "./Utils";
 

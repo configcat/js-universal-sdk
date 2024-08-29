@@ -1,8 +1,8 @@
 import { assert } from "chai";
+import { FakeConfigCatKernel, FakeConfigFetcher } from "./helpers/fakes";
 import { PollingMode } from "#lib";
 import { IConfigCatClient } from "#lib/ConfigCatClient";
 import * as configcatClient from "#lib/index.pubternals";
-import { FakeConfigCatKernel, FakeConfigFetcher } from "./helpers/fakes";
 
 describe("ConfigCatClient index (main)", () => {
 

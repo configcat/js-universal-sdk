@@ -1,8 +1,8 @@
 import { assert } from "chai";
 import * as mockttp from "mockttp";
-import { LogLevel } from "#lib";
 import { FakeLogger } from "../helpers/fakes";
 import { createClientWithManualPoll } from ".";
+import { LogLevel } from "#lib";
 
 // If the tests are failing with strange https or proxy errors, it is most likely that the local .key and .pem files are expired.
 // You can regenerate them anytime (./test/cert/regenerate.md).

@@ -1,8 +1,8 @@
+import { platform } from "./platform";
+import { sdkType, sdkVersion } from "./utils";
 import { ManualPollOptions } from "#lib/ConfigCatClientOptions";
 import { ManualPollConfigService } from "#lib/ManualPollConfigService";
 import { Config } from "#lib/ProjectConfig";
-import { platform } from "./platform";
-import { sdkType, sdkVersion } from "./utils";
 
 const configCache: { [location: string]: Promise<Config> } = {};
 

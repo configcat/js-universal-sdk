@@ -1,7 +1,7 @@
 import { assert } from "chai";
+import { platform } from "./helpers/platform";
 import { IConfigCatClient, IEvaluationDetails, IOptions, LogLevel, OverrideBehaviour, PollingMode, SettingKeyValue, User } from "#lib";
 import { createConsoleLogger, createFlagOverridesFromMap } from "#lib/index.pubternals";
-import { platform } from "./helpers/platform";
 
 const sdkKey = "PKDVCLf-Hq-h-kCzMp-L7Q/psuH7BGHoUmdONrzzUOY7A";
 

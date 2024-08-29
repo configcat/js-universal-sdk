@@ -1,13 +1,13 @@
 import "mocha";
 import * as fs from "fs";
 import * as path from "path";
+import { initPlatform } from "../helpers/platform";
 import { ConfigCatClient } from "#lib/ConfigCatClient";
 import { AutoPollOptions, LazyLoadOptions, ManualPollOptions } from "#lib/ConfigCatClientOptions";
 import type { IConfigCatKernel, IConfigFetcher } from "#lib/index.pubternals";
 import type { IConfigCatClient, INodeAutoPollOptions, INodeLazyLoadingOptions, INodeManualPollOptions } from "#lib/node";
 import { getClient } from "#lib/node";
 import { NodeHttpConfigFetcher } from "#lib/node/NodeHttpConfigFetcher";
-import { initPlatform } from "../helpers/platform";
 
 const sdkVersion = "0.0.0-test";
 const sdkType = "ConfigCat-Node";

@@ -1,8 +1,8 @@
 import { assert } from "chai";
-import { LogLevel } from "#lib";
-import { ChromeLocalStorageCache, fromUtf8Base64, toUtf8Base64 } from "#lib/chromium-extension/ChromeLocalStorageCache";
 import { FakeLogger } from "../helpers/fakes";
 import { createClientWithLazyLoad } from ".";
+import { LogLevel } from "#lib";
+import { ChromeLocalStorageCache, fromUtf8Base64, toUtf8Base64 } from "#lib/chromium-extension/ChromeLocalStorageCache";
 
 describe("Base64 encode/decode test", () => {
   let allBmpChars = "";
