@@ -155,11 +155,32 @@ jobs:
       - name: Test
         run: CHROMIUM_BIN=$(which chrome) npm run test:chromium-extension:chromium
 
+  test-deno:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        deno-version: [~v1.31, vx.x.x]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+    name: Deno ${{ matrix.deno-version }} (${{ matrix.os }}) test
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ matrix.deno-version }}
+
+      - name: Install dependencies & build
+        run: npm install
+
+      - name: Test
+        run: npm run test:deno
+
   coverage:
     needs: [
       test-node,
       test-browser-chrome, test-browser-chromium, test-browser-firefox,
-      test-chromium-extension-chrome, test-chromium-extension-chromium
+      test-chromium-extension-chrome, test-chromium-extension-chromium,
+      test-deno
     ]
     runs-on: ubuntu-latest
     steps:

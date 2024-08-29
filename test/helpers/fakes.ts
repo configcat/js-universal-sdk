@@ -135,9 +135,7 @@ export class FakeConfigFetcher extends FakeConfigFetcherBase {
     return '{"f":{"debug":{"t":0,"v":{"b":true},"i":"abcdefgh"}}}';
   }
 
-  ["constructor"]!: typeof FakeConfigFetcher;
-
-  protected get defaultConfigJson(): string | null { return this.constructor.configJson; }
+  get defaultConfigJson(): string | null { return (this.constructor as typeof FakeConfigFetcher).configJson; }
 
   constructor(callbackDelayInMilliseconds = 0) {
     super(null, callbackDelayInMilliseconds);

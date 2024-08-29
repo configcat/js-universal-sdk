@@ -1,7 +1,7 @@
 import { assert } from "chai";
 import fetchMock from "fetch-mock";
 import { FakeLogger } from "../helpers/fakes";
-import { createClientWithManualPoll } from ".";
+import { platform } from "../helpers/platform";
 import { LogLevel } from "#lib";
 
 describe("HTTP tests", () => {
@@ -18,7 +18,7 @@ describe("HTTP tests", () => {
       try {
         const logger = new FakeLogger();
 
-        const client = createClientWithManualPoll(sdkKey, {
+        const client = platform().createClientWithManualPoll(sdkKey, {
           requestTimeoutMs,
           baseUrl,
           logger
@@ -32,6 +32,8 @@ describe("HTTP tests", () => {
         assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
         assert.isDefined(logger.events.find(([level, , msg]) => level === LogLevel.Error && msg.toString().startsWith("Request timed out while trying to fetch config JSON.")));
+
+        client.dispose();
       }
       finally {
         fetchMock.reset();
@@ -45,7 +47,7 @@ describe("HTTP tests", () => {
     try {
       const logger = new FakeLogger();
 
-      const client = createClientWithManualPoll(sdkKey, {
+      const client = platform().createClientWithManualPoll(sdkKey, {
         requestTimeoutMs: 1000,
         baseUrl,
         logger
@@ -57,6 +59,8 @@ describe("HTTP tests", () => {
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
       assert.isDefined(logger.events.find(([level, , msg]) => level === LogLevel.Error && msg.toString().startsWith("Your SDK Key seems to be wrong.")));
+
+      client.dispose();
     }
     finally {
       fetchMock.reset();
@@ -69,7 +73,7 @@ describe("HTTP tests", () => {
     try {
       const logger = new FakeLogger();
 
-      const client = createClientWithManualPoll(sdkKey, {
+      const client = platform().createClientWithManualPoll(sdkKey, {
         requestTimeoutMs: 1000,
         baseUrl,
         logger
@@ -81,6 +85,8 @@ describe("HTTP tests", () => {
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
       assert.isDefined(logger.events.find(([level, , msg]) => level === LogLevel.Error && msg.toString().startsWith("Unexpected HTTP response was received while trying to fetch config JSON:")));
+
+      client.dispose();
     }
     finally {
       fetchMock.reset();
@@ -94,7 +100,7 @@ describe("HTTP tests", () => {
     try {
       const logger = new FakeLogger();
 
-      const client = createClientWithManualPoll(sdkKey, {
+      const client = platform().createClientWithManualPoll(sdkKey, {
         requestTimeoutMs: 1000,
         baseUrl,
         logger
@@ -106,6 +112,8 @@ describe("HTTP tests", () => {
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
       assert.isDefined(logger.events.find(([level, , msg]) => level === LogLevel.Error && msg.toString().startsWith("Unexpected error occurred while trying to fetch config JSON.")));
+
+      client.dispose();
     }
     finally {
       fetchMock.reset();

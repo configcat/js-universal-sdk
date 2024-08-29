@@ -63,7 +63,7 @@ initPlatform({
 
 declare const require: any;
 
-// With karma-webpack importing test modules by `import "..";` does not work, we need to import them using some webpack magic (require.context).
+// With karma-webpack, importing test modules by `import "..";` does not work, we need to import them using some webpack magic (require.context).
 // This way we need to specify the set of modules via a single regex expression, which is pretty limited. We can't let any node-specific module
 // be matched by the regex because that would break webpack. So, as a workaround, we use the `.nb.ts` extension to ignore node-specific modules.
 const testsContext: Record<string, any> = require.context("..", true, /(?<!\/index|\.nb)\.ts$/);

@@ -1,6 +1,7 @@
-import { createConsoleLogger, getClient } from "../../lib/esm/index.pubternals.js";
-import { LogLevel, PollingMode, User } from "../../lib/esm/index.js";
-import { FetchApiConfigFetcher } from "../../lib/esm/shared/FetchApiConfigFetcher.js";
+// @deno-types=../../lib/esm/deno/index.d.ts
+import { createConsoleLogger, getClient, LogLevel, PollingMode, User } from "../../lib/esm/deno/index.js";
+// Use this import statement instead of the above in your application.
+// import { createConsoleLogger, getClient, LogLevel, PollingMode, User } from "https://cdn.skypack.dev/@configcat/sdk@1.0.0?dts"; - TODO: test this after release
 
 // Creating the ConfigCat client instance using the SDK Key
 const client = getClient(
@@ -11,11 +12,6 @@ const client = getClient(
     logger: createConsoleLogger(LogLevel.Info),
     setupHooks: hooks => hooks
       .on("clientReady", () => console.log("Client is ready!"))
-  },
-  {
-    configFetcher: new FetchApiConfigFetcher(),
-    sdkType: "ConfigCat-Deno",
-    sdkVersion: "0.0.0-sample"
   });
 
 try {

@@ -8,6 +8,8 @@
 coverage/
 DEPENDENCIES.md
 DEPLOY.md
+deno.*
+deno.*.*
 deploy.sh
 gulpfile.js
 karma.*.conf.js

@@ -25,52 +25,69 @@ ConfigCat is a <a href="https://configcat.com" target="_blank">hosted feature fl
 
 ### 1. Install and import package:
 
-*via NPM [package](https://npmjs.com/package/@configcat/sdk):*
+#### *via NPM*
+
+First install the [NPM package](https://npmjs.com/package/@configcat/sdk):
+
 ```PowerShell
 npm i @configcat/sdk
 ```
 
-Node.js backend applications:
+Then import it into your application:
 
-```js
-import * as configcat from "@configcat/sdk/node";
-```
+* Node.js backend applications:
+  ```js
+  import * as configcat from "@configcat/sdk/node";
+  ```
 
-Frontend applications running in the browser:
+* Deno backend applications:
+  ```js
+  import * as configcat from "npm:@configcat/sdk/deno";
+  ```
 
-```js
-import * as configcat from "@configcat/sdk/browser";
-```
+  (To make this work, you may need to enable the [unstable-byonm](https://docs.deno.com/runtime/manual/tools/unstable_flags/#--unstable-byonm) feature or modify your [import map](https://docs.deno.com/runtime/manual/basics/import_maps/).)
 
-Extensions for Chromium-based browsers (Chrome, Edge, etc.):
+* Frontend applications running in the browser:
+  ```js
+  import * as configcat from "@configcat/sdk/browser";
+  ```
 
-```js
-import * as configcat from "@configcat/sdk/chromium-extension";
-```
+* Extensions for Chromium-based browsers (Chrome, Edge, etc.):
+  ```js
+  import * as configcat from "@configcat/sdk/chromium-extension";
+  ```
 
-> Please note that these package references require your JS runtime or bundler to support the [exports](https://nodejs.org/api/packages.html#exports) package.json field introduced in Node.js v12.7. In the unlikely case of compatibility issues, you can fall back to `import * as configcat from "@configcat/sdk";`. Basically, this is another entry point to the Node.js build, however, if your bundler recognizes the [browser](https://github.com/defunctzombie/package-browser-field-spec) package.json field, it will also work in your browser applications seamlessly.
+> Please note that these package references require your JS runtime (execution engine) or bundler to support the [exports](https://nodejs.org/api/packages.html#exports) package.json field, introduced in Node.js v12.7. In the unlikely case of compatibility issues, you can fall back to `import * as configcat from "@configcat/sdk";`. Basically, this is another entry point to the Node.js build, however, if your bundler recognizes the [browser](https://github.com/defunctzombie/package-browser-field-spec) package.json field, it will also work in your browser applications seamlessly.
 
-*via CDN:*
+#### *via CDN*
 
-Frontend applications running in the browser
+Import the package directly from a CDN server into your application:
 
-```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@configcat/sdk@latest/dist/configcat.browser.umd.min.js"></script>
-```
+* Deno backend applications:
 
-or 
+  ```js
+  import * as configcat from "https://cdn.skypack.dev/@configcat/sdk@1.0.0?dts";
+  ```
 
-```html
-<script type="module">
-  import * as configcat from "https://cdn.jsdelivr.net/npm/@configcat/sdk@latest/dist/configcat.browser.esm.min.js";
-</script>
-```
+* Frontend applications running in the browser
 
-Extensions for Chromium-based browsers (Chrome, Edge, etc.)
+  ```html
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@configcat/sdk@latest/dist/configcat.browser.umd.min.js"></script>
+  ```
 
-```js
-import * as configcat from "https://cdn.jsdelivr.net/npm/@configcat/sdk@latest/dist/configcat.chromium-extension.esm.min.js";
-```
+  or 
+
+  ```html
+  <script type="module">
+    import * as configcat from "https://cdn.jsdelivr.net/npm/@configcat/sdk@latest/dist/configcat.browser.esm.min.js";
+  </script>
+  ```
+
+* Extensions for Chromium-based browsers (Chrome, Edge, etc.)
+
+  ```js
+  import * as configcat from "https://cdn.jsdelivr.net/npm/@configcat/sdk@latest/dist/configcat.chromium-extension.esm.min.js";
+  ```
 
 ### 2. Go to the <a href="https://app.configcat.com/sdkkey" target="_blank">ConfigCat Dashboard</a> to get your *SDK Key*:
 ![SDK-KEY](https://raw.githubusercontent.com/ConfigCat/js-sdk/master/media/readme02-3.png  "SDK-KEY")
@@ -134,6 +151,7 @@ if (value) {
   - [Sample Node.js console application using TypeScript and ECMAScript module system](https://github.com/configcat/js-universal-sdk/tree/master/samples/ts-node-console-esm)
   - [Sample Node.js application using Express and Docker](https://github.com/configcat/js-universal-sdk/tree/master/samples/node-expresswithdocker)
   - [Sample Node.js application on how to get real time updates on feature flag changes](https://github.com/configcat/js-universal-sdk/tree/master/samples/node-realtimeupdate)
+  - [Sample Deno console application](https://github.com/configcat/js-universal-sdk/tree/master/samples/deno-console)
   - [Plain HTML + JS](https://github.com/configcat/js-universal-sdk/tree/master/samples/html)
   - [Plain HTML + JS using ECMAScript module system](https://github.com/configcat/js-universal-sdk/tree/master/samples/html-esm)
   - [Sample Angular web application](https://github.com/configcat/js-universal-sdk/tree/master/samples/angular-sample)
@@ -170,13 +188,13 @@ Currently the `@configcat/sdk` NPM package includes the following builds of the 
   - Uses the standard ECMAScript module format.
   - Targets ES2017 and includes all required polyfills.
   - TypeScript type definitions are not provided.
-* `lib/cjs/` - for older versions of Node.js:
+* `lib/cjs/` - for older versions of Node.js and older bundlers:
   - Uses the legacy CommonJS module format.
   - Targets ES2017 and includes all required polyfills except for the `Promise` feature. 
   - TypeScript type definitions are provided.
-* `lib/esm/` - for modern versions of Node.js and bundlers:
+* `lib/esm/` - for modern versions of Node.js, bundlers and Deno:
   - Uses the standard ECMAScript module format.
-  - Targets ES2017  and includes all required polyfills except for the `Promise` feature.
+  - Targets ES2017 and includes all required polyfills except for the `Promise` feature.
   - TypeScript type definitions are provided.
 
 > Please note that the `lib` builds target a relatively new version of the EcmaScript standard. According to [node.green](https://node.green/), this is fully compatible with [the supported Node.js versions](#platform-compatibility). However, if you use a bundler and want to target browsers that have no ES2017 support, please make sure that your bundler is configured to downlevel the language syntax. If you want to go all the way down to ES5, then you will need to include a polyfill for the `Promise` feature as well.
@@ -186,8 +204,6 @@ Currently the `@configcat/sdk` NPM package includes the following builds of the 
 This SDK should be compatible with all modern, widely used JS runtimes (execution engines) and bundlers.
 
 The SDK is [tested](https://github.com/configcat/js-universal-sdk/blob/master/.github/workflows/js-ci.yml) against the following runtimes:
-- @configcat/sdk/node:
-  - Node.js (v14.x, v16.x, v18.x, v20.x) on Windows / Ubuntu / macOS
 - @configcat/sdk/browser:
   - Chrome (stable, latest, beta)
   - Chromium (64.0.3282.0, 72.0.3626.0, 80.0.3987.0)
@@ -195,6 +211,10 @@ The SDK is [tested](https://github.com/configcat/js-universal-sdk/blob/master/.g
 - @configcat/sdk/chromium-extension:
   - Chrome (stable, latest, beta)
   - Chromium (72.0.3626.0, 80.0.3987.0)
+- @configcat/sdk/deno:
+  - Deno (v1.31, latest stable) on Windows / Ubuntu / macOS
+- @configcat/sdk/node:
+  - Node.js (v14.x, v16.x, v18.x, v20.x) on Windows / Ubuntu / macOS
 
 These tests are running on each pull request, before each deploy, and on a daily basis.
 

@@ -16,8 +16,8 @@ const DIST_PATH = "dist";
 
 const TARGETS = [
   { id: "cjs", outDir: path.join(LIB_PATH, "cjs"), compileArgs: { config: "tsconfig.build.cjs.json" }, postProcessArgs: { importExtension: ".js", reexportTypesFrom: "../esm" } },
-  { id: "esm", outDir: path.join(LIB_PATH, "esm"), compileArgs: { config: "tsconfig.build.esm.json" }, postProcessArgs: { importExtension: ".js", addModulePackageJson: true } },
-  { id: "types", outDir: path.join(LIB_PATH, "esm"), compileArgs: { config: "tsconfig.build.types.json" }, postProcessArgs: { skipVersionUpdate: true } },
+  { id: "esm", outDir: path.join(LIB_PATH, "esm"), compileArgs: { config: "tsconfig.build.esm.json" }, postProcessArgs: { importExtension: ".js", skipTypes: true, addModulePackageJson: true } },
+  { id: "types", outDir: path.join(LIB_PATH, "esm"), compileArgs: { config: "tsconfig.build.types.json" }, postProcessArgs: { importExtension: ".js", skipVersionUpdate: true } },
   { id: "esm-browser-bundle", outFile: path.join(DIST_PATH, "configcat.browser.esm.js"), compileArgs: { useWebpack: true, config: "webpack.browser.esm.config.js" } },
   { id: "umd-browser-bundle", outFile: path.join(DIST_PATH, "configcat.browser.umd.js"), compileArgs: { useWebpack: true, config: "webpack.browser.umd.config.js" } },
   { id: "esm-chromium-extension-bundle", outFile: path.join(DIST_PATH, "configcat.chromium-extension.esm.js"), compileArgs: { useWebpack: true, config: "webpack.chromium-extension.esm.config.js" } },
@@ -43,18 +43,21 @@ function compile(targetId, { useWebpack, config }) {
     const childProcess = child_process.spawn(path.normalize(command), args, { shell: true });
     childProcess.stdout.on("data", data => console.log(data.toString()));
     childProcess.stderr.on("data", data => console.error(data.toString()));
-    childProcess.on("close", code => !code ? resolve() : reject(`tsc exited with code ${code}`));
+    childProcess.on("close", code => !code ? resolve() : reject(Error(`tsc exited with code ${code}`)));
     childProcess.on("error", err => reject(err));
   });
 }
 
-async function postProcess(targetId, targetFile, targetDir, { importExtension, addModulePackageJson, reexportTypesFrom, skipVersionUpdate }, version) {
+async function postProcess(targetId, targetFile, targetDir, { importExtension, reexportTypesFrom, skipTypes, addModulePackageJson, skipVersionUpdate }, version) {
   console.log(`* Post-processing target '${targetId}'...`);
 
   if (targetDir != null && (importExtension || reexportTypesFrom != null)) {
     const importDir = reexportTypesFrom != null ? path.resolve(targetDir, reexportTypesFrom) : null;
     for await (const file of glob.globIterate(normalizePathSeparator(targetDir) + "/**", { absolute: true })) {
-      if (file.endsWith(".d.ts")) {
+      const isDts = file.endsWith(".d.ts");
+      if (isDts) {
+        if (skipTypes) continue;
+
         // According to our tests, the best compatibility with various build tools can be achieved when each source file has
         // the corresponding .d.ts file in the same directory. However, we don't want to duplicate the type definitions
         // (because that could lead to other subtle issues), so we replace the content of the CJS build's .d.ts files so
@@ -75,8 +78,10 @@ async function postProcess(targetId, targetFile, targetDir, { importExtension, a
         continue;
       }
 
+      // Fix extensions of referenced files in export/import statements.
       let fileContent = await fsp.readFile(file, "utf8");
-      fileContent = (addModulePackageJson ? fixEsmImports : fixCjsImports)(targetDir, fileContent, importExtension);
+      const isEsm = addModulePackageJson || isDts;
+      fileContent = (isEsm ? fixEsmImports : fixCjsImports)(targetDir, fileContent, importExtension);
       if (fileContent != null) await fsp.writeFile(file, fileContent, "utf8", { flush: true });
     }
   }
@@ -117,18 +122,18 @@ async function postProcess(targetId, targetFile, targetDir, { importExtension, a
   }
 
   function fixEsmImports(baseDir, fileContent, ext) {
-    return fixImports(baseDir, fileContent, ext, /(from\s*)('|")(\..*?)\2()/g);
+    return fixImports(baseDir, fileContent, ext, /(import|from\s*)('|")(\..*?)\2()/g);
   }
 
   function fixImports(baseDir, fileContent, ext, regex) {
     let changed = false;
-    fileContent = fileContent.replace(regex, (_, pre, quote, file, post) => {
+    fileContent = fileContent.replace(regex, (_, pre, quote, specifier, post) => {
       changed = true;
-      const filePath = path.resolve(path.join(baseDir, file));
+      const filePath = path.resolve(path.join(baseDir, specifier));
       if (fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()) {
-        file += "/index";
+        specifier += "/index";
       }
-      return pre + quote + file + ext + quote + post;
+      return pre + quote + specifier + ext + quote + post;
     });
     return changed ? fileContent : null;
   }

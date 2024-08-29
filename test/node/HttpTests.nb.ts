@@ -40,6 +40,8 @@ describe("HTTP tests", () => {
     assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
     assert.isDefined(logger.events.find(([level, , msg]) => level === LogLevel.Error && msg.toString().startsWith("Request timed out while trying to fetch config JSON.")));
+
+    client.dispose();
   });
 
   it("404 Not found", async () => {
@@ -59,6 +61,8 @@ describe("HTTP tests", () => {
     assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
     assert.isDefined(logger.events.find(([level, , msg]) => level === LogLevel.Error && msg.toString().startsWith("Your SDK Key seems to be wrong.")));
+
+    client.dispose();
   });
 
   it("Unexpected status code", async () => {
@@ -78,6 +82,8 @@ describe("HTTP tests", () => {
     assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
     assert.isDefined(logger.events.find(([level, , msg]) => level === LogLevel.Error && msg.toString().startsWith("Unexpected HTTP response was received while trying to fetch config JSON:")));
+
+    client.dispose();
   });
 
   it("Unexpected error", async () => {
@@ -97,6 +103,8 @@ describe("HTTP tests", () => {
     assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
     assert.isDefined(logger.events.find(([level, , msg]) => level === LogLevel.Error && msg.toString().startsWith("Unexpected error occurred while trying to fetch config JSON.")));
+
+    client.dispose();
   });
 
   it("HTTP proxy", async () => {
@@ -115,5 +123,7 @@ describe("HTTP tests", () => {
 
     const defaultValue = "NOT_CAT";
     assert.strictEqual("Cat", await client.getValueAsync("stringDefaultCat", defaultValue));
+
+    client.dispose();
   });
 });

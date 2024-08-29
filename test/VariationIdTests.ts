@@ -16,6 +16,8 @@ describe("ConfigCatClient", () => {
     const result = await client.getKeyAndValueAsync("abcdefgh");
     assert.equal(result?.settingKey, "debug");
     assert.equal(result?.settingValue, "def");
+
+    client.dispose();
   });
 
   it("getKeyAndValueAsync() works with rollout rules", async () => {
@@ -30,6 +32,8 @@ describe("ConfigCatClient", () => {
     const result = await client.getKeyAndValueAsync("6ada5ff2");
     assert.equal(result?.settingKey, "debug");
     assert.equal(result?.settingValue, "value");
+
+    client.dispose();
   });
 
   it("getKeyAndValueAsync() works with percentage options", async () => {
@@ -44,6 +48,8 @@ describe("ConfigCatClient", () => {
     const result = await client.getKeyAndValueAsync("622f5d07");
     assert.equal(result?.settingKey, "debug2");
     assert.equal(result?.settingValue, "value2");
+
+    client.dispose();
   });
 
   it("getKeyAndValueAsync() works with percentage options within targeting rule", async () => {
@@ -58,6 +64,8 @@ describe("ConfigCatClient", () => {
     const result = await client.getKeyAndValueAsync("622f5d07");
     assert.equal(result?.settingKey, "debug");
     assert.equal(result?.settingValue, "value2");
+
+    client.dispose();
   });
 
   it("getKeyAndValueAsync() with null config", async () => {
@@ -71,6 +79,8 @@ describe("ConfigCatClient", () => {
 
     const result = await client.getKeyAndValueAsync("622f5d07");
     assert.isNull(result);
+
+    client.dispose();
   });
 
   it("getKeyAndValueAsync() with non-existing id", async () => {
@@ -84,5 +94,7 @@ describe("ConfigCatClient", () => {
 
     const result = await client.getKeyAndValueAsync("non-exisiting");
     assert.isNull(result);
+
+    client.dispose();
   });
 });

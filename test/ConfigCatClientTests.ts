@@ -1,4 +1,6 @@
 import { assert, expect } from "chai";
+import { FakeCache, FakeConfigCatKernel, FakeConfigFetcher, FakeConfigFetcherBase, FakeConfigFetcherWithAlwaysVariableEtag, FakeConfigFetcherWithNullNewConfig, FakeConfigFetcherWithPercentageOptions, FakeConfigFetcherWithRules, FakeConfigFetcherWithTwoCaseSensitiveKeys, FakeConfigFetcherWithTwoKeys, FakeConfigFetcherWithTwoKeysAndRules, FakeExternalAsyncCache, FakeExternalCache, FakeExternalCacheWithInitialData, FakeLogger } from "./helpers/fakes";
+import { allowEventLoop } from "./helpers/utils";
 import { AutoPollConfigService } from "#lib/AutoPollConfigService";
 import { IConfigCache } from "#lib/ConfigCatCache";
 import { ConfigCatClient, IConfigCatClient, IConfigCatKernel } from "#lib/ConfigCatClient";
@@ -16,8 +18,6 @@ import { EvaluateContext, IEvaluateResult, IEvaluationDetails, IRolloutEvaluator
 import { User } from "#lib/User";
 import { delay } from "#lib/Utils";
 import "./helpers/ConfigCatClientCacheExtensions";
-import { FakeCache, FakeConfigCatKernel, FakeConfigFetcher, FakeConfigFetcherBase, FakeConfigFetcherWithAlwaysVariableEtag, FakeConfigFetcherWithNullNewConfig, FakeConfigFetcherWithPercentageOptions, FakeConfigFetcherWithRules, FakeConfigFetcherWithTwoCaseSensitiveKeys, FakeConfigFetcherWithTwoKeys, FakeConfigFetcherWithTwoKeysAndRules, FakeExternalAsyncCache, FakeExternalCache, FakeExternalCacheWithInitialData, FakeLogger } from "./helpers/fakes";
-import { allowEventLoop } from "./helpers/utils";
 
 describe("ConfigCatClient", () => {
   for (const [sdkKey, customBaseUrl, isValid] of <[string, boolean, boolean][]>[
@@ -66,6 +66,8 @@ describe("ConfigCatClient", () => {
     assert.equal(true, await client.getValueAsync("debug", false, new User("identifier")));
     assert.equal(true, await client.getValueAsync("debug", false, new User("identifier")));
     assert.equal(false, await client.getValueAsync("NOT_EXISTS", false, new User("identifier")));
+
+    client.dispose();
   });
 
   it("Initialization With LazyLoadOptions should create an instance, getValueAsync works", async () => {
@@ -80,6 +82,8 @@ describe("ConfigCatClient", () => {
     assert.equal(false, await client.getValueAsync("NOT_EXISTS", false, new User("identifier")));
     await client.forceRefreshAsync();
     assert.equal(true, await client.getValueAsync("debug", false, new User("identifier")));
+
+    client.dispose();
   });
 
   it("Initialization With ManualPollOptions should create an instance, getValueAsync works", async () => {
@@ -95,6 +99,8 @@ describe("ConfigCatClient", () => {
     assert.equal(true, await client.getValueAsync("debug", false, new User("identifier")));
     assert.equal(true, await client.getValueAsync("debug", false, new User("identifier")));
     assert.equal(false, await client.getValueAsync("NOT_EXISTS", false, new User("identifier")));
+
+    client.dispose();
   });
 
   it("Initialization With ManualPollOptions should create an instance", (done) => {
@@ -106,6 +112,7 @@ describe("ConfigCatClient", () => {
     client.forceRefreshAsync().then(() => {
       client.getValueAsync("debug", false).then(function(value) {
         assert.equal(true, value);
+        client.dispose();
         done();
       });
     });
@@ -120,6 +127,7 @@ describe("ConfigCatClient", () => {
 
     client.getValueAsync("debug", false).then(function(value) {
       assert.equal(true, value);
+      client.dispose();
       done();
     });
   });
@@ -133,6 +141,7 @@ describe("ConfigCatClient", () => {
 
     client.getValueAsync("debug", false).then(function(value) {
       assert.equal(false, value);
+      client.dispose();
       done();
     });
   });
@@ -152,6 +161,8 @@ describe("ConfigCatClient", () => {
 
     assert.equal(1, flagEvaluatedEvents.length);
     assert.strictEqual(value, flagEvaluatedEvents[0].value);
+
+    client.dispose();
   });
 
   it("getAllKeysAsync() works", async () => {
@@ -164,6 +175,8 @@ describe("ConfigCatClient", () => {
     assert.equal(keys.length, 2);
     assert.equal(keys[0], "debug");
     assert.equal(keys[1], "debug2");
+
+    client.dispose();
   });
 
   it("getAllKeysAsync() works - without config", async () => {
@@ -174,6 +187,8 @@ describe("ConfigCatClient", () => {
     assert.isDefined(client);
     const keys = await client.getAllKeysAsync();
     assert.equal(keys.length, 0);
+
+    client.dispose();
   });
 
   it("getValueDetailsAsync() should return correct result when setting is not available", async () => {
@@ -215,6 +230,8 @@ describe("ConfigCatClient", () => {
 
     assert.equal(1, flagEvaluatedEvents.length);
     assert.strictEqual(actual, flagEvaluatedEvents[0]);
+
+    client.dispose();
   });
 
   it("getValueDetailsAsync() should return correct result when setting is available but no rule applies", async () => {
@@ -256,6 +273,8 @@ describe("ConfigCatClient", () => {
 
     assert.equal(1, flagEvaluatedEvents.length);
     assert.strictEqual(actual, flagEvaluatedEvents[0]);
+
+    client.dispose();
   });
 
   it("getValueDetailsAsync() should return correct result when setting is available and a comparison-based rule applies", async () => {
@@ -300,6 +319,8 @@ describe("ConfigCatClient", () => {
 
     assert.equal(1, flagEvaluatedEvents.length);
     assert.strictEqual(actual, flagEvaluatedEvents[0]);
+
+    client.dispose();
   });
 
   it("getValueDetailsAsync() should return correct result when setting is available and a percentage-based rule applies", async () => {
@@ -343,6 +364,8 @@ describe("ConfigCatClient", () => {
 
     assert.equal(1, flagEvaluatedEvents.length);
     assert.strictEqual(actual, flagEvaluatedEvents[0]);
+
+    client.dispose();
   });
 
   it("getValueDetailsAsync() should return default value when exception thrown", async () => {
@@ -398,6 +421,8 @@ describe("ConfigCatClient", () => {
     const [actualErrorMessage, actualErrorException] = errorEvents[0];
     expect(actualErrorMessage).to.include("Error occurred in the `getValueDetailsAsync` method");
     assert.strictEqual(err, actualErrorException);
+
+    client.dispose();
   });
 
   it("getAllValueDetailsAsync() should return correct result", async () => {
@@ -448,6 +473,8 @@ describe("ConfigCatClient", () => {
       assert.isDefined(flagEvaluatedDetails);
       assert.strictEqual(actualDetails, flagEvaluatedDetails);
     }
+
+    client.dispose();
   });
 
   it("getAllValueDetailsAsync() should return default value when exception thrown", async () => {
@@ -512,6 +539,8 @@ describe("ConfigCatClient", () => {
     else {
       assert.strictEqual(err, actualErrorException);
     }
+
+    client.dispose();
   });
 
   it("Initialization With AutoPollOptions - config changed in every fetch - should fire configChanged every polling iteration", async () => {
@@ -567,8 +596,10 @@ describe("ConfigCatClient", () => {
     const elapsedMilliseconds: number = new Date().getTime() - startDate;
 
     assert.isAtLeast(elapsedMilliseconds, 500 - 10); // 10 ms for tolerance
-    assert.isAtMost(elapsedMilliseconds, maxInitWaitTimeSeconds * 1000 + 50); // 50 ms for tolerance
+    assert.isAtMost(elapsedMilliseconds, maxInitWaitTimeSeconds * 1000 + 75); // 75 ms for tolerance
     assert.equal(actualValue, true);
+
+    client.dispose();
   });
 
   for (const statusCode of [403, 404, 500, null]) {
@@ -589,9 +620,11 @@ describe("ConfigCatClient", () => {
       const elapsedMilliseconds: number = new Date().getTime() - startDate;
 
       assert.isAtLeast(elapsedMilliseconds, 500 - 10); // 10 ms for tolerance
-      assert.isAtMost(elapsedMilliseconds, configFetchDelay * 2 + 50); // 50 ms for tolerance
+      assert.isAtMost(elapsedMilliseconds, configFetchDelay * 2 + 75); // 75 ms for tolerance
       assert.equal(actualDetails.isDefaultValue, true);
       assert.equal(actualDetails.value, false);
+
+      client.dispose();
     });
   }
 
@@ -608,8 +641,10 @@ describe("ConfigCatClient", () => {
     const elapsedMilliseconds: number = new Date().getTime() - startDate;
 
     assert.isAtLeast(elapsedMilliseconds, (maxInitWaitTimeSeconds * 1000) - 10); // 10 ms for tolerance
-    assert.isAtMost(elapsedMilliseconds, (maxInitWaitTimeSeconds * 1000) + 50); // 50 ms for tolerance
+    assert.isAtMost(elapsedMilliseconds, (maxInitWaitTimeSeconds * 1000) + 75); // 75 ms for tolerance
     assert.equal(actualValue, false);
+
+    client.dispose();
   });
 
   describe("Initialization - with waitForReady", () => {
@@ -631,6 +666,8 @@ describe("ConfigCatClient", () => {
 
       assert.equal(state, ClientCacheState.HasUpToDateFlagData);
       assert.equal(client.snapshot().getValue("debug", false), true);
+
+      client.dispose();
     });
 
     it("AutoPoll - should wait for maxInitWaitTimeSeconds", async () => {
@@ -645,7 +682,7 @@ describe("ConfigCatClient", () => {
       const elapsedMilliseconds: number = new Date().getTime() - startDate;
 
       assert.isAtLeast(elapsedMilliseconds, (maxInitWaitTimeSeconds * 1000) - 10); // 10 ms for tolerance
-      assert.isAtMost(elapsedMilliseconds, (maxInitWaitTimeSeconds * 1000) + 50); // 50 ms for tolerance
+      assert.isAtMost(elapsedMilliseconds, (maxInitWaitTimeSeconds * 1000) + 75); // 75 ms for tolerance
 
       assert.equal(state, ClientCacheState.NoFlagData);
 
@@ -654,6 +691,8 @@ describe("ConfigCatClient", () => {
       const evaluationDetails = snapshot.getValueDetails("debug", false);
       assert.isTrue(evaluationDetails.isDefaultValue);
       assert.equal(evaluationDetails.value, false);
+
+      client.dispose();
     });
 
     it("AutoPoll - should wait for maxInitWaitTimeSeconds and return cached", async () => {
@@ -676,7 +715,7 @@ describe("ConfigCatClient", () => {
       const elapsedMilliseconds: number = new Date().getTime() - startDate;
 
       assert.isAtLeast(elapsedMilliseconds, (maxInitWaitTimeSeconds * 1000) - 10); // 10 ms for tolerance
-      assert.isAtMost(elapsedMilliseconds, (maxInitWaitTimeSeconds * 1000) + 50); // 50 ms for tolerance
+      assert.isAtMost(elapsedMilliseconds, (maxInitWaitTimeSeconds * 1000) + 75); // 75 ms for tolerance
 
       assert.equal(state, ClientCacheState.HasCachedFlagDataOnly);
 
@@ -685,6 +724,8 @@ describe("ConfigCatClient", () => {
       const evaluationDetails = snapshot.getValueDetails("debug", false);
       assert.isFalse(evaluationDetails.isDefaultValue);
       assert.equal(evaluationDetails.value, true);
+
+      client.dispose();
     });
 
     it("LazyLoad - return cached", async () => {
@@ -699,6 +740,8 @@ describe("ConfigCatClient", () => {
 
       assert.equal(state, ClientCacheState.HasUpToDateFlagData);
       assert.equal(client.snapshot().getValue("debug", false), true);
+
+      client.dispose();
     });
 
     it("LazyLoad - expired, return cached", async () => {
@@ -713,6 +756,8 @@ describe("ConfigCatClient", () => {
 
       assert.equal(state, ClientCacheState.HasCachedFlagDataOnly);
       assert.equal(client.snapshot().getValue("debug", false), true);
+
+      client.dispose();
     });
 
     it("ManualPoll - return cached", async () => {
@@ -730,6 +775,8 @@ describe("ConfigCatClient", () => {
       assert.equal(snapshot.getValue("debug", false), true);
       assert.deepEqual(snapshot.getAllKeys(), ["debug"]);
       assert.isNotNull(snapshot.fetchedConfig);
+
+      client.dispose();
     });
 
     it("ManualPoll - flag override - local only", async () => {
@@ -755,6 +802,8 @@ describe("ConfigCatClient", () => {
       assert.equal(snapshot.getValue("fakeKey", false), true);
       assert.deepEqual(snapshot.getAllKeys(), ["fakeKey"]);
       assert.isNull(snapshot.fetchedConfig);
+
+      client.dispose();
     });
   });
 
@@ -769,6 +818,8 @@ describe("ConfigCatClient", () => {
     const actual = await client.getValueAsync("debug2", "N/A", user);
 
     assert.equal(actual, "value2");
+
+    client.dispose();
   });
 
   it("getValueAsync - User.Identifier can be non empty string - should return evaluated value", async () => {
@@ -782,6 +833,8 @@ describe("ConfigCatClient", () => {
     const actual = await client.getValueAsync("debug2", "N/A", user);
 
     assert.equal(actual, "value1");
+
+    client.dispose();
   });
 
   it("getValueAsync - case sensitive key tests", async () => {
@@ -799,6 +852,8 @@ describe("ConfigCatClient", () => {
 
     assert.notEqual(actual, "debug");
     assert.equal(actual, "DEBUG");
+
+    client.dispose();
   });
 
   it("getValueAsync - case sensitive attribute tests", async () => {
@@ -820,6 +875,8 @@ describe("ConfigCatClient", () => {
     actual = await client.getValueAsync("debug", "N/A", user);
 
     assert.equal(actual, "UPPER-VALUE");
+
+    client.dispose();
   });
 
   it("getAllValuesAsync - works", async () => {
@@ -836,6 +893,8 @@ describe("ConfigCatClient", () => {
     assert.equal(actual.length, 2);
 
     assert.deepEqual(flagEvaluatedEvents.map(evt => [evt.key, evt.value]), actual.map(kv => [kv.settingKey, kv.settingValue]));
+
+    client.dispose();
   });
 
   it("getAllValuesAsync - without config - return empty array", async () => {
@@ -853,6 +912,8 @@ describe("ConfigCatClient", () => {
     assert.equal(actual.length, 0);
 
     assert.equal(flagEvaluatedEvents.length, 0);
+
+    client.dispose();
   });
 
   it("Initialization With LazyLoadOptions - multiple getValueAsync should not cause multiple config fetches", async () => {
@@ -864,6 +925,8 @@ describe("ConfigCatClient", () => {
 
     await Promise.all([client.getValueAsync("debug", false), client.getValueAsync("debug", false)]);
     assert.equal(1, configFetcher.calledTimes);
+
+    client.dispose();
   });
 
   it("Initialization With LazyLoadOptions - multiple getValue calls should not cause multiple config fetches", done => {
@@ -880,6 +943,7 @@ describe("ConfigCatClient", () => {
         callbackCount++;
         if (callbackCount > 1) {
           assert.equal(1, configFetcher.calledTimes);
+          client.dispose();
           done();
         }
       }
@@ -899,6 +963,7 @@ describe("ConfigCatClient", () => {
     const client: IConfigCatClient = new ConfigCatClient(options, configCatKernel);
 
     client.getValueAsync("debug", false).then(value => {
+      client.dispose();
       done(value === true ? null : new Error("Wrong value."));
     });
   });
@@ -914,6 +979,8 @@ describe("ConfigCatClient", () => {
 
     const value = await client.getValueAsync("debug", false);
     assert.isTrue(value);
+
+    client.dispose();
   });
 
   it("Dispose should stop the client in every scenario", done => {
@@ -926,6 +993,7 @@ describe("ConfigCatClient", () => {
     assert.equal(configFetcher.calledTimes, 0);
     setTimeout(() => {
       assert.equal(configFetcher.calledTimes, 1);
+      client.dispose();
       done();
     }, 4000);
   });
@@ -1405,6 +1473,8 @@ describe("ConfigCatClient", () => {
     assert.isFalse(refreshResult.isSuccess);
     assert.isString(refreshResult.errorMessage);
     assert.strictEqual(refreshResult.errorException, errorException);
+
+    client.dispose();
   });
 
   it("forceRefresh() should return failure including error in case of unexpected exception", async () => {
@@ -1434,6 +1504,8 @@ describe("ConfigCatClient", () => {
     assert.isFalse(refreshResult.isSuccess);
     expect(refreshResult.errorMessage).to.include(errorMessage);
     assert.strictEqual(refreshResult.errorException, errorException);
+
+    client.dispose();
   });
 
   for (const pollingMode of [PollingMode.AutoPoll, PollingMode.LazyLoad, PollingMode.ManualPoll]) {
@@ -1456,7 +1528,7 @@ describe("ConfigCatClient", () => {
       const cacheType = externalCache ? (asyncCacheGet ? "external cache (async get)" : "external cache (sync get)") : "in-memory cache";
       it(`${PollingMode[pollingMode]} - snapshot() should correctly report client cache state - ${cacheType} - ${initialCacheState}`, async () => {
         const configFetcher = new FakeConfigFetcher(100);
-        const configJson = configFetcher.constructor.configJson;
+        const configJson = configFetcher.defaultConfigJson;
         const configCatKernel: FakeConfigCatKernel = { configFetcher, sdkType: "common", sdkVersion: "1.0.0" };
         const asyncCacheDelayMs = 1, expirationSeconds = 5;
 

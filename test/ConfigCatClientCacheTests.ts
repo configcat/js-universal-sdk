@@ -1,10 +1,10 @@
 import { assert } from "chai";
+import { FakeConfigCatKernel, FakeConfigFetcher } from "./helpers/fakes";
+import { allowEventLoop } from "./helpers/utils";
 import { ConfigCatClient, ConfigCatClientCache } from "#lib/ConfigCatClient";
 import { AutoPollOptions, ManualPollOptions } from "#lib/ConfigCatClientOptions";
 import { isWeakRefAvailable, setupPolyfills } from "#lib/Polyfills";
 import "./helpers/ConfigCatClientCacheExtensions";
-import { FakeConfigCatKernel, FakeConfigFetcher } from "./helpers/fakes";
-import { allowEventLoop } from "./helpers/utils";
 
 describe("ConfigCatClientCache", () => {
   it("getOrCreate() should return shared instance when cached instance is alive", (done) => {

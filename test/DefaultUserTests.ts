@@ -84,6 +84,8 @@ describe("DefaultUser", () => {
     assert.equal(values[0].settingValue, "defaultValue");
     variationIds = (await client.getAllValueDetailsAsync()).map(d => d.variationId);
     assert.equal(variationIds[0], "defaultVariationId");
+
+    client.dispose();
   });
 
   it("Default user set works with options", async () => {
@@ -152,6 +154,8 @@ describe("DefaultUser", () => {
     assert.equal(values[0].settingValue, "defaultValue");
     variationIds = (await client.getAllValueDetailsAsync()).map(d => d.variationId);
     assert.equal(variationIds[0], "defaultVariationId");
+
+    client.dispose();
   });
 
 });

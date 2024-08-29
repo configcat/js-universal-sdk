@@ -61,3 +61,5 @@ lib/
 dist/
 .idea/
 .parcel-cache/
+deno.lock
+deno.import-map.json

@@ -8,8 +8,9 @@
     "declaration": false
   },
   "files": [
-    "src/node/index.full.ts",
     "src/browser/index.full.ts",
-    "src/chromium-extension/index.ts"
+    "src/chromium-extension/index.ts",
+    "src/deno/index.ts",
+    "src/node/index.full.ts"
   ]
 }

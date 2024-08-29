@@ -45,7 +45,9 @@ describe("ConfigServiceBaseTests", () => {
       .setup(m => m.get(It.IsAny<string>()))
       .callback(() => { return callNo++ === 1 ? ProjectConfig.empty : pc; })
       .setup(m => m.set(It.IsAny<string>(), It.IsAny<ProjectConfig>()))
-      .returns();
+      .returns()
+      .setup(m => m.getInMemory())
+      .returns(ProjectConfig.empty);
 
     const pollIntervalSeconds = 1;
 
@@ -85,7 +87,9 @@ describe("ConfigServiceBaseTests", () => {
       .setup(m => m.get(It.IsAny<string>()))
       .callback((_) => { return callNo++ === 1 ? ProjectConfig.empty : pc; })
       .setup(m => m.set(It.IsAny<string>(), It.IsAny<ProjectConfig>()))
-      .returns();
+      .returns()
+      .setup(m => m.getInMemory())
+      .returns(ProjectConfig.empty);
 
     const pollIntervalSeconds = 1;
 
@@ -129,7 +133,9 @@ describe("ConfigServiceBaseTests", () => {
       .setup(m => m.get(It.IsAny<string>()))
       .returns(pc)
       .setup(m => m.set(It.IsAny<string>(), It.IsAny<ProjectConfig>()))
-      .returns();
+      .returns()
+      .setup(m => m.getInMemory())
+      .returns(ProjectConfig.empty);
 
     const pollIntervalSeconds = 1;
 
@@ -315,7 +321,9 @@ describe("ConfigServiceBaseTests", () => {
       .setup(m => m.get(It.IsAny<string>()))
       .returns(oldConfig)
       .setup(m => m.set(It.IsAny<string>(), It.IsAny<ProjectConfig>()))
-      .returns();
+      .returns()
+      .setup(m => m.getInMemory())
+      .returns(ProjectConfig.empty);
 
     const service: LazyLoadConfigService = new LazyLoadConfigService(
       fetcherMock.object(),
@@ -347,7 +355,9 @@ describe("ConfigServiceBaseTests", () => {
 
     const cacheMock = new Mock<IConfigCache>()
       .setup(m => m.get(It.IsAny<string>()))
-      .returns(config);
+      .returns(config)
+      .setup(m => m.getInMemory())
+      .returns(ProjectConfig.empty);
 
     const service: LazyLoadConfigService = new LazyLoadConfigService(
       fetcherMock.object(),
@@ -384,7 +394,9 @@ describe("ConfigServiceBaseTests", () => {
       .setup(m => m.get(It.IsAny<string>()))
       .returns(config)
       .setup(m => m.set(It.IsAny<string>(), It.IsAny<ProjectConfig>()))
-      .returns();
+      .returns()
+      .setup(m => m.getInMemory())
+      .returns(ProjectConfig.empty);
 
     const service: LazyLoadConfigService = new LazyLoadConfigService(
       fetcherMock.object(),
@@ -422,7 +434,9 @@ describe("ConfigServiceBaseTests", () => {
       .setup(m => m.get(It.IsAny<string>()))
       .returns(Promise.resolve(config))
       .setup(m => m.set(It.IsAny<string>(), It.IsAny<ProjectConfig>()))
-      .returns(Promise.resolve());
+      .returns(Promise.resolve())
+      .setup(m => m.getInMemory())
+      .returns(ProjectConfig.empty);
 
     const service: LazyLoadConfigService = new LazyLoadConfigService(
       fetcherMock.object(),
@@ -480,6 +494,8 @@ describe("ConfigServiceBaseTests", () => {
     assert.strictEqual(cachedPc, actualPc);
 
     fetcherMock.verify(v => v.fetchLogic(It.IsAny<OptionsBase>(), It.IsAny<string>()), Times.Never());
+
+    service.dispose();
   });
 
   it("AutoPollConfigService - getConfig() should wait for fetch when cached config is expired", async () => {
@@ -523,6 +539,8 @@ describe("ConfigServiceBaseTests", () => {
     assert.equal(fr.config.configJson, actualPc.configJson);
 
     fetcherMock.verify(v => v.fetchLogic(It.IsAny<OptionsBase>(), It.IsAny<string>()), Times.Once());
+
+    service.dispose();
   });
 
   it("LazyLoadConfigService - getConfig() should return cached config when cached config is not expired", async () => {
