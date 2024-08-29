@@ -1,6 +1,6 @@
-import { ManualPollOptions } from "../../src/ConfigCatClientOptions";
-import { ManualPollConfigService } from "../../src/ManualPollConfigService";
-import { Config } from "../../src/ProjectConfig";
+import { ManualPollOptions } from "#lib/ConfigCatClientOptions";
+import { ManualPollConfigService } from "#lib/ManualPollConfigService";
+import { Config } from "#lib/ProjectConfig";
 import { platform } from "./platform";
 import { sdkType, sdkVersion } from "./utils";
 

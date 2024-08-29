@@ -27,7 +27,7 @@
     "./browser": {
       "types": "./lib/esm/browser/index.d.ts",
       "import": "./lib/esm/browser/index.js"
-      },
+    },
     "./chromium-extension": {
       "types": "./lib/esm/chromium-extension/index.d.ts",
       "import": "./lib/esm/chromium-extension/index.js"
@@ -35,9 +35,31 @@
     "./lib/*": "./lib/*",
     "./package.json": "./package.json"
   },
+  "imports": {
+    "#lib/browser": {
+      "browser": "./lib/esm/browser/index.full.js"
+    },
+    "#lib/chromium-extension": {
+      "browser": "./lib/esm/chromium-extension/index.js"
+    },
+    "#lib/node": {
+      "require": "./lib/cjs/node/index.full.js"
+    },
+    "#lib": {
+      "browser": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js"
+    },
+    "#lib/*": {
+      "browser": "./lib/esm/*.js",
+      "require": "./lib/cjs/*.js"
+    }
+  },
   "scripts": {
     "build": "gulp",
-    "coverage": "nyc --relative=true --report-dir coverage/node npm run test:node:indirect && cross-env TEST_BROWSER_COVERAGE=true npm run test:browser:chrome && cross-env TEST_CHROMIUM_EXTENSION_COVERAGE=true npm run test:chromium-extension:chrome && lcov-result-merger './coverage/*/**/lcov.info' './coverage/lcov.info'",
+    "coverage:browser": "cross-env TEST_BROWSER_COVERAGE=true npm run test:browser:chrome",
+    "coverage:chromium-extension": "cross-env TEST_CHROMIUM_EXTENSION_COVERAGE=true npm run test:chromium-extension:chrome",
+    "coverage:node": "nyc --include src/** --include lib/cjs/** --exclude lib/cjs/**/*.d.ts  --source-map --relative=true --report-dir coverage/node npm run test:node:indirect",
+    "coverage": "npm run coverage:node && npm run coverage:browser && npm run coverage:chromium-extension && node merge-coverage.js",
     "lint:fix": "eslint . --ext .ts --fix",
     "lint": "eslint . --ext .ts",
     "prepare": "npm run build",
@@ -46,8 +68,8 @@
     "test:browser:firefox": "karma start karma.browser.firefox.conf.js",
     "test:chromium-extension:chrome": "karma start karma.chromium-extension.chrome.conf.js",
     "test:chromium-extension:chromium": "karma start karma.chromium-extension.chromium.conf.js",
-    "test:node": "cross-env NODE_EXTRA_CA_CERTS=./test/node/cert/testCA.pem TS_NODE_PROJECT=./tsconfig.mocha.node.json node --expose-gc --require ts-node/register node_modules/mocha/bin/_mocha 'test/node/index.ts' --exit --timeout 30000",
     "test:node:indirect": "npm run test:node",
+    "test:node": "cross-env NODE_EXTRA_CA_CERTS=./test/node/cert/testCA.pem TS_NODE_PROJECT=./tsconfig.mocha.node.json node --expose-gc --require ts-node/register node_modules/mocha/bin/_mocha 'test/node/index.ts' --exit --timeout 30000",
     "test": "npm run test:node && npm run test:browser:chrome && npm run test:chromium-extension:chrome"
   },
   "keywords": [
@@ -67,11 +89,11 @@
   "license": "MIT",
   "homepage": "https://configcat.com",
   "dependencies": {
+    "glob": "^11.0.0",
     "tunnel": "^0.0.6"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
-    "@ephesoft/webpack.istanbul.loader": "^2.2.0",
     "@types/chai": "~4.3.4",
     "@types/chrome": "~0.0.270",
     "@types/mocha": "~10.0.1",
@@ -82,6 +104,7 @@
     "babel-loader": "^9.1.0",
     "chai": "^4.3.7",
     "core-js": "^3.38.1",
+    "coverage-istanbul-loader": "^3.0.5",
     "cross-env": "^7.0.3",
     "eslint": "^8.34.0",
     "eslint-plugin-import": "^2.27.5",
@@ -92,12 +115,11 @@
     "karma-chrome-launcher": "^3.1.1",
     "karma-cli": "^2.0.0",
     "karma-coverage": "^2.2.0",
+    "karma-coverage-istanbul-reporter": "^3.0.3",
     "karma-firefox-launcher": "^2.1.2",
     "karma-mocha": "^2.0.1",
-    "karma-safari-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.8",
     "karma-webpack": "5.0.0",
-    "lcov-result-merger": "^5.0.1",
     "mocha": "^10.2.0",
     "mock-xmlhttprequest": "^8.1.0",
     "mockttp": "^3.9.1",
@@ -105,15 +127,11 @@
     "nyc": "^15.0.0",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
+    "tsconfig-paths-webpack-plugin": "^4.1.0",
     "tslib": "^2.7.0",
-    "typescript": "~4.4.3",
+    "typescript": "^5.5.4",
     "webpack": "^5.94.0",
     "webpack-cli": "^5.1.4"
-  },
-  "overrides": {
-    "chokidar": "3.5.3",
-    "glob-parent": "5.1.2",
-    "loader-utils": "1.4.2"
   },
   "repository": {
     "type": "git",

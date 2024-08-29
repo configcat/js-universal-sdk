@@ -1,14 +1,14 @@
 import { assert } from "chai";
 import { EqualMatchingInjectorConfig, It, Mock, RejectedPromiseFactory, ResolvedPromiseFactory, Times } from "moq.ts";
 import { MimicsRejectedAsyncPresetFactory, MimicsResolvedAsyncPresetFactory, Presets, ReturnsAsyncPresetFactory, RootMockProvider, ThrowsAsyncPresetFactory } from "moq.ts/internal";
-import { AutoPollConfigService } from "../src/AutoPollConfigService";
-import { IConfigCache, InMemoryConfigCache } from "../src/ConfigCatCache";
-import { AutoPollOptions, LazyLoadOptions, ManualPollOptions, OptionsBase } from "../src/ConfigCatClientOptions";
-import { FetchResult, IConfigFetcher, IFetchResponse } from "../src/ConfigFetcher";
-import { LazyLoadConfigService } from "../src/LazyLoadConfigService";
-import { ManualPollConfigService } from "../src/ManualPollConfigService";
-import { Config, ProjectConfig } from "../src/ProjectConfig";
-import { delay } from "../src/Utils";
+import { AutoPollConfigService } from "#lib/AutoPollConfigService";
+import { IConfigCache, InMemoryConfigCache } from "#lib/ConfigCatCache";
+import { AutoPollOptions, LazyLoadOptions, ManualPollOptions, OptionsBase } from "#lib/ConfigCatClientOptions";
+import { FetchResult, IConfigFetcher, IFetchResponse } from "#lib/ConfigFetcher";
+import { LazyLoadConfigService } from "#lib/LazyLoadConfigService";
+import { ManualPollConfigService } from "#lib/ManualPollConfigService";
+import { Config, ProjectConfig } from "#lib/ProjectConfig";
+import { delay } from "#lib/Utils";
 import { FakeCache } from "./helpers/fakes";
 
 describe("ConfigServiceBaseTests", () => {

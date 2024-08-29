@@ -1,9 +1,9 @@
 import { assert } from "chai";
-import { LogLevel, SettingType, SettingValue, User } from "../src";
-import { LoggerWrapper } from "../src/ConfigCatLogger";
-import { createConsoleLogger } from "../src/index.pubternals";
-import { RolloutEvaluator, evaluate } from "../src/RolloutEvaluator";
-import { getUserAttributes } from "../src/User";
+import { LogLevel, SettingType, SettingValue, User } from "#lib";
+import { LoggerWrapper } from "#lib/ConfigCatLogger";
+import { createConsoleLogger } from "#lib/index.pubternals";
+import { RolloutEvaluator, evaluate } from "#lib/RolloutEvaluator";
+import { getUserAttributes } from "#lib/User";
 import { CdnConfigLocation, ConfigLocation } from "./helpers/ConfigLocation";
 import { platform } from "./helpers/platform";
 

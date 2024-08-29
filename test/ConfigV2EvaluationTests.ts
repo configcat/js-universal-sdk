@@ -1,9 +1,9 @@
 import { assert } from "chai";
-import { IManualPollOptions, OverrideBehaviour, SettingValue, User, UserAttributeValue } from "../src";
-import { LogLevel, LoggerWrapper } from "../src/ConfigCatLogger";
-import { FlagOverrides, MapOverrideDataSource } from "../src/FlagOverrides";
-import { RolloutEvaluator, evaluate, isAllowedValue } from "../src/RolloutEvaluator";
-import { errorToString } from "../src/Utils";
+import { IManualPollOptions, OverrideBehaviour, SettingValue, User, UserAttributeValue } from "#lib";
+import { LogLevel, LoggerWrapper } from "#lib/ConfigCatLogger";
+import { FlagOverrides, MapOverrideDataSource } from "#lib/FlagOverrides";
+import { RolloutEvaluator, evaluate, isAllowedValue } from "#lib/RolloutEvaluator";
+import { errorToString } from "#lib/Utils";
 import { CdnConfigLocation, LocalFileConfigLocation } from "./helpers/ConfigLocation";
 import { FakeLogger } from "./helpers/fakes";
 import { platform } from "./helpers/platform";

@@ -1,7 +1,7 @@
 import { assert } from "chai";
-import { LogLevel } from "../src";
-import { IConfigCatClient } from "../src/ConfigCatClient";
-import { createConsoleLogger } from "../src/index.pubternals";
+import { LogLevel } from "#lib";
+import { IConfigCatClient } from "#lib/ConfigCatClient";
+import { createConsoleLogger } from "#lib/index.pubternals";
 import { FakeConfigCatKernel, FakeConfigFetcherWithRules } from "./helpers/fakes";
 import { createClientWithAutoPoll } from "./helpers/utils";
 

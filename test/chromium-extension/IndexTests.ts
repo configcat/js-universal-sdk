@@ -1,6 +1,6 @@
 import { assert } from "chai";
-import { FlagOverrides, IConfigCatClient, PollingMode } from "../../src";
-import * as configcatClient from "../../src/chromium-extension";
+import { FlagOverrides, IConfigCatClient, PollingMode } from "#lib";
+import * as configcatClient from "#lib/chromium-extension";
 
 describe("ConfigCatClient index (main)", () => {
   for (const pollingMode of [PollingMode.AutoPoll, PollingMode.LazyLoad, PollingMode.ManualPoll]) {

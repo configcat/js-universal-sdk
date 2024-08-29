@@ -1,6 +1,6 @@
 import { assert } from "chai";
-import { FlagOverrides, IConfigCatClient, PollingMode } from "../../src";
-import * as configcatClient from "../../src/node";
+import { FlagOverrides, IConfigCatClient, PollingMode } from "#lib";
+import * as configcatClient from "#lib/node";
 
 describe("ConfigCatClient tests", () => {
 

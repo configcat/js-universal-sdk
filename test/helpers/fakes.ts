@@ -1,11 +1,11 @@
-import { IConfigCatCache, LogEventId } from "../../src";
-import { IConfigCache } from "../../src/ConfigCatCache";
-import { IConfigCatKernel } from "../../src/ConfigCatClient";
-import { OptionsBase } from "../../src/ConfigCatClientOptions";
-import { IConfigCatLogger, LogLevel, LogMessage } from "../../src/ConfigCatLogger";
-import { IConfigFetcher, IFetchResponse } from "../../src/ConfigFetcher";
-import { ProjectConfig } from "../../src/ProjectConfig";
-import { delay } from "../../src/Utils";
+import { IConfigCatCache, LogEventId } from "#lib";
+import { IConfigCache } from "#lib/ConfigCatCache";
+import { IConfigCatKernel } from "#lib/ConfigCatClient";
+import { OptionsBase } from "#lib/ConfigCatClientOptions";
+import { IConfigCatLogger, LogLevel, LogMessage } from "#lib/ConfigCatLogger";
+import { IConfigFetcher, IFetchResponse } from "#lib/ConfigFetcher";
+import { ProjectConfig } from "#lib/ProjectConfig";
+import { delay } from "#lib/Utils";
 
 export class FakeLogger implements IConfigCatLogger {
   events: [LogLevel, LogEventId, LogMessage, any?][] = [];

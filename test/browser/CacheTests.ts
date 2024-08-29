@@ -1,6 +1,6 @@
 import { assert } from "chai";
-import { LogLevel } from "../../src";
-import { LocalStorageCache, fromUtf8Base64, getLocalStorage, toUtf8Base64 } from "../../src/browser/LocalStorageCache";
+import { LogLevel } from "#lib";
+import { LocalStorageCache, fromUtf8Base64, getLocalStorage, toUtf8Base64 } from "#lib/browser/LocalStorageCache";
 import { FakeLogger } from "../helpers/fakes";
 import { createClientWithLazyLoad } from ".";
 

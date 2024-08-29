@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import fetchMock from "fetch-mock";
-import { LogLevel } from "../../src";
+import { LogLevel } from "#lib";
 import { FakeLogger } from "../helpers/fakes";
 import { createClientWithManualPoll } from ".";
 

@@ -1,10 +1,10 @@
 import { assert } from "chai";
-import { User } from "../src";
-import { LogLevel, LoggerWrapper } from "../src/ConfigCatLogger";
-import { SettingValue } from "../src/ProjectConfig";
-import { RolloutEvaluator, evaluate } from "../src/RolloutEvaluator";
-import { WellKnownUserObjectAttribute } from "../src/User";
-import { errorToString } from "../src/Utils";
+import { User } from "#lib";
+import { LogLevel, LoggerWrapper } from "#lib/ConfigCatLogger";
+import { SettingValue } from "#lib/ProjectConfig";
+import { RolloutEvaluator, evaluate } from "#lib/RolloutEvaluator";
+import { WellKnownUserObjectAttribute } from "#lib/User";
+import { errorToString } from "#lib/Utils";
 import { CdnConfigLocation, ConfigLocation, LocalFileConfigLocation } from "./helpers/ConfigLocation";
 import { FakeLogger } from "./helpers/fakes";
 import { platform } from "./helpers/platform";

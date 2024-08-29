@@ -2,9 +2,14 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "target": "ES2017",
-    "module": "CommonJS"
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "paths": {
+      "#lib/node": ["./lib/cjs/node/index.full"],
+      "#lib": ["./lib/cjs/index"],
+      "#lib/*": ["./lib/cjs/*"]
+    }
   },
   "ts-node": {
-    "experimentalResolver": true
-  },
+  }
 }

@@ -1,10 +1,10 @@
 import { assert, expect } from "chai";
-import { SettingKeyValue } from "../src";
-import { ConfigCatClient, IConfigCatClient, IConfigCatKernel } from "../src/ConfigCatClient";
-import { AutoPollOptions, ManualPollOptions } from "../src/ConfigCatClientOptions";
-import { MapOverrideDataSource, OverrideBehaviour } from "../src/FlagOverrides";
-import { SettingValue } from "../src/ProjectConfig";
-import { isAllowedValue } from "../src/RolloutEvaluator";
+import { SettingKeyValue } from "#lib";
+import { ConfigCatClient, IConfigCatClient, IConfigCatKernel } from "#lib/ConfigCatClient";
+import { AutoPollOptions, ManualPollOptions } from "#lib/ConfigCatClientOptions";
+import { MapOverrideDataSource, OverrideBehaviour } from "#lib/FlagOverrides";
+import { SettingValue } from "#lib/ProjectConfig";
+import { isAllowedValue } from "#lib/RolloutEvaluator";
 import { FakeConfigCatKernel, FakeConfigFetcherBase, FakeConfigFetcherWithNullNewConfig } from "./helpers/fakes";
 
 describe("Local Overrides", () => {

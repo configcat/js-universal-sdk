@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import * as mockxmlhttprequest from "mock-xmlhttprequest";
-import { LogLevel } from "../../src";
+import { LogLevel } from "#lib";
 import { FakeLogger } from "../helpers/fakes";
 import { createClientWithManualPoll } from ".";
 

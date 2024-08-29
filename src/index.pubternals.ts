@@ -70,9 +70,3 @@ export type { IConfigCache } from "./ConfigCatCache";
 export { ExternalConfigCache, InMemoryConfigCache } from "./ConfigCatCache";
 
 export type { IEventEmitter, IEventProvider } from "./EventEmitter";
-
-export { LocalStorageCache } from "./browser/LocalStorageCache";
-
-export { XmlHttpRequestConfigFetcher } from "./browser/XmlHttpRequestConfigFetcher";
-
-export { FetchApiConfigFetcher } from "./shared/FetchApiConfigFetcher";

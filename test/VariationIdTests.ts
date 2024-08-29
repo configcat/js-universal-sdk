@@ -1,6 +1,6 @@
 import { assert } from "chai";
-import { ConfigCatClient, IConfigCatClient } from "../src/ConfigCatClient";
-import { AutoPollOptions } from "../src/ConfigCatClientOptions";
+import { ConfigCatClient, IConfigCatClient } from "#lib/ConfigCatClient";
+import { AutoPollOptions } from "#lib/ConfigCatClientOptions";
 import { FakeConfigCatKernel, FakeConfigFetcherWithNullNewConfig, FakeConfigFetcherWithPercentageOptionsWithinTargetingRule, FakeConfigFetcherWithTwoKeysAndRules } from "./helpers/fakes";
 
 describe("ConfigCatClient", () => {

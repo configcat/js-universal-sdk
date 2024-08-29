@@ -1,13 +1,13 @@
-import { getClient } from "../../src/chromium-extension";
-import type { IConfigCatClient, IJSAutoPollOptions, IJSLazyLoadingOptions, IJSManualPollOptions } from "../../src/chromium-extension";
-import { ChromeLocalStorageCache } from "../../src/chromium-extension/ChromeLocalStorageCache";
-import { ConfigCatClient } from "../../src/ConfigCatClient";
-import { AutoPollOptions, LazyLoadOptions, ManualPollOptions } from "../../src/ConfigCatClientOptions";
-import type { IConfigCatKernel, IConfigFetcher } from "../../src/index.pubternals";
-import { FetchApiConfigFetcher } from "../../src/shared/FetchApiConfigFetcher";
-import sdkVersion from "../../src/Version";
+import { getClient } from "#lib/chromium-extension";
+import type { IConfigCatClient, IJSAutoPollOptions, IJSLazyLoadingOptions, IJSManualPollOptions } from "#lib/chromium-extension";
+import { ChromeLocalStorageCache } from "#lib/chromium-extension/ChromeLocalStorageCache";
+import { ConfigCatClient } from "#lib/ConfigCatClient";
+import { AutoPollOptions, LazyLoadOptions, ManualPollOptions } from "#lib/ConfigCatClientOptions";
+import type { IConfigCatKernel, IConfigFetcher } from "#lib/index.pubternals";
+import { FetchApiConfigFetcher } from "#lib/shared/FetchApiConfigFetcher";
 import { initPlatform } from "../helpers/platform";
 
+const sdkVersion = "0.0.0-test";
 const sdkType = "ConfigCat-JS-Chromium";
 
 export const createConfigFetcher = (): IConfigFetcher => new FetchApiConfigFetcher();
@@ -53,8 +53,8 @@ declare const require: any;
 
 // With karma-webpack importing test modules by `import "..";` does not work, we need to import them using some webpack magic (require.context).
 // This way we need to specify the set of modules via a single regex expression, which is pretty limited. We can't let any node-specific module
-// be matched by the regex because that would break webpack. So, as a workaround, we use the `.no.ts` extension to ignore node-specific modules.
-const testsContext: Record<string, any> = require.context("..", true, /(?<!\/index|\.no)\.ts$/);
+// be matched by the regex because that would break webpack. So, as a workaround, we use the `.nb.ts` extension to ignore node-specific modules.
+const testsContext: Record<string, any> = require.context("..", true, /(?<!\/index|\.nb)\.ts$/);
 
 for (const key of testsContext.keys()) {
   const segments = key.split("/");

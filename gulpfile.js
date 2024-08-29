@@ -1,7 +1,10 @@
+"use strict";
+
 const gulp = require("gulp");
 const child_process = require("child_process");
-const fs = require("fs"), fsp = fs.promises;
 const path = require("path");
+const fs = require("fs"), fsp = fs.promises;
+const glob = require("glob");
 const packageJson = require("./package.json");
 
 process.chdir(__dirname);
@@ -14,6 +17,7 @@ const DIST_PATH = "dist";
 const TARGETS = [
   { id: "cjs", outDir: path.join(LIB_PATH, "cjs"), compileArgs: { config: "tsconfig.build.cjs.json" }, postProcessArgs: { importExtension: ".js", reexportTypesFrom: "../esm" } },
   { id: "esm", outDir: path.join(LIB_PATH, "esm"), compileArgs: { config: "tsconfig.build.esm.json" }, postProcessArgs: { importExtension: ".js", addModulePackageJson: true } },
+  { id: "types", outDir: path.join(LIB_PATH, "esm"), compileArgs: { config: "tsconfig.build.types.json" }, postProcessArgs: { skipVersionUpdate: true } },
   { id: "esm-browser-bundle", outFile: path.join(DIST_PATH, "configcat.browser.esm.js"), compileArgs: { useWebpack: true, config: "webpack.browser.esm.config.js" } },
   { id: "umd-browser-bundle", outFile: path.join(DIST_PATH, "configcat.browser.umd.js"), compileArgs: { useWebpack: true, config: "webpack.browser.umd.config.js" } },
   { id: "esm-chromium-extension-bundle", outFile: path.join(DIST_PATH, "configcat.chromium-extension.esm.js"), compileArgs: { useWebpack: true, config: "webpack.chromium-extension.esm.config.js" } },
@@ -30,7 +34,7 @@ async function clean() {
 }
 
 function compile(targetId, { useWebpack, config }) {
-  console.log(`  Compiling target '${targetId}'...`);
+  console.log(`* Compiling target '${targetId}'...`);
   return new Promise((resolve, reject) => {
     const [command, args] = useWebpack
       ? ["node_modules/.bin/webpack", ["-c", path.normalize(config)]]
@@ -44,12 +48,12 @@ function compile(targetId, { useWebpack, config }) {
   });
 }
 
-async function postProcess(targetId, targetFile, targetDir, { importExtension, addModulePackageJson, reexportTypesFrom }, version) {
-  console.log(`  Post-processing target '${targetId}'...`);
+async function postProcess(targetId, targetFile, targetDir, { importExtension, addModulePackageJson, reexportTypesFrom, skipVersionUpdate }, version) {
+  console.log(`* Post-processing target '${targetId}'...`);
 
   if (targetDir != null && (importExtension || reexportTypesFrom != null)) {
     const importDir = reexportTypesFrom != null ? path.resolve(targetDir, reexportTypesFrom) : null;
-    for await (const file of enumerateFiles(targetDir)) {
+    for await (const file of glob.globIterate(normalizePathSeparator(targetDir) + "/**", { absolute: true })) {
       if (file.endsWith(".d.ts")) {
         // According to our tests, the best compatibility with various build tools can be achieved when each source file has
         // the corresponding .d.ts file in the same directory. However, we don't want to duplicate the type definitions
@@ -59,7 +63,7 @@ async function postProcess(targetId, targetFile, targetDir, { importExtension, a
           const importDirRelative = path.relative(path.dirname(file), importDir);
           let importFile = path.join(importDirRelative, path.relative(targetDir, file));
           importFile = changeExtension(changeExtension(importFile, ""), importExtension ?? "");
-          const fileContent = `export * from "${importFile.replace(/\\/g, "/")}";`;
+          const fileContent = `export * from "${normalizePathSeparator(importFile)}";`;
           await fsp.writeFile(file, fileContent, "utf8", { flush: true });
           continue;
         }
@@ -86,35 +90,30 @@ async function postProcess(targetId, targetFile, targetDir, { importExtension, a
   }
 
   // We need to replace the "CONFIGCAT_SDK_VERSION" magic string with the actual version string specified in the package.json.
-  const versionFilePaths = targetFile != null
-    ? [targetFile, changeExtension(targetFile, ".min" + path.extname(targetFile))]
-    : [path.join(targetDir, "Version.js")];
+  if (!skipVersionUpdate) {
+    const versionFilePaths = targetFile != null
+      ? [targetFile, changeExtension(targetFile, ".min" + path.extname(targetFile))]
+      : [path.join(targetDir, "Version.js")];
 
-  for (const file of versionFilePaths) {
-    if (fs.existsSync(file)) {
-      let fileContent = await fsp.readFile(file, "utf8");
-      fileContent = fileContent.replace("CONFIGCAT_SDK_VERSION", version);
-      await fsp.writeFile(file, fileContent, "utf8", { flush: true });
+    for (const file of versionFilePaths) {
+      if (fs.existsSync(file)) {
+        let fileContent = await fsp.readFile(file, "utf8");
+        fileContent = fileContent.replace("CONFIGCAT_SDK_VERSION", version);
+        await fsp.writeFile(file, fileContent, "utf8", { flush: true });
+      }
     }
   }
 
   /* Helper functions */
 
-  async function* enumerateFiles(dir) {
-    const entries = await fsp.readdir(dir);
-    for (const entry of entries) {
-      const entryPath = path.join(dir, entry);
-      if (fs.lstatSync(entryPath).isDirectory()) yield* enumerateFiles(entryPath);
-      else yield entryPath;
-    }
-  }
+  function normalizePathSeparator(path) { return path.replace(/\\/g, "/"); }
 
   function changeExtension(file, ext) {
     return path.join(path.dirname(file), path.basename(file, path.extname(file)) + ext);
   }
 
   function fixCjsImports(baseDir, fileContent, ext) {
-    return fixImports(baseDir, fileContent, ext, /(require\s*\(\s*)('|")(\..*?)\2(\s*\))/g);
+    return fixImports(baseDir, fileContent, ext, /((?:^|[^\w$_])require\s*\(\s*)('|")(\..*?)\2(\s*\))/g);
   }
 
   function fixEsmImports(baseDir, fileContent, ext) {

@@ -1,10 +1,9 @@
 {
   /* Common TS compiler settings for compilation outputs, IDEs (like VSCode) and test runner (Mocha) */
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
     "target": "ESNext",
-    "moduleResolution": "Node",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "lib": [
       "DOM", // APIs used: setTimeout, clearTimeout
       "ES2015", // APIs used: Promise (.race) (polyfilled)
@@ -12,7 +11,14 @@
       "ES2019.Object", // APIs used: Object.fromEntries (polyfilled)
       "ES2021.WeakRef", // APIs used: WeakRef (only used if available)
       "ES2021.Promise" // APIs used: AggregateError (only used if available)
-    ]
+    ],
+    "paths": {
+      "#lib/browser": ["./lib/esm/browser/index.full"],
+      "#lib/chromium-extension": ["./lib/esm/chromium-extension/index"],
+      "#lib/node": ["./lib/esm/node/index.full"],
+      "#lib": ["./lib/esm/index"],
+      "#lib/*": ["./lib/esm/*"]
+    }
   },
   "exclude": [
     "**/node_modules/",

@@ -12,10 +12,13 @@ deploy.sh
 gulpfile.js
 karma.*.conf.js
 media/
+merge-coverage.js
 node_modules/
 package-lock.json
 samples/
+sonar-project.properties
 src/
+lib/**/*.map
 test/
 tsconfig*.json
 webpack.*.config.js

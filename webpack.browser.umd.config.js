@@ -22,10 +22,7 @@ module.exports = {
     library: { name: "configcat", type: "umd", umdNamedDefine: true },
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js"],
-    extensionAlias: {
-      ".js": [".js", ".ts"],
-    },
+    extensions: [".ts", ".tsx", ".js"]
   },
   module: {
     rules: [

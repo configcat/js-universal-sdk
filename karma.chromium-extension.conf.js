@@ -10,7 +10,8 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      ["test/**/*.ts"]: ["webpack", "sourcemap"]
+      ["test/**/*.ts"]: ["webpack", "sourcemap"],
+      ["lib/esm/**/*.js"]: ["sourcemap"]
     },
 
     mime: {
@@ -28,25 +29,21 @@ module.exports = function(config) {
       }
     },
 
+    reporters: [
+      "progress",
+      ...(enableCoverage ? ["coverage-istanbul"] : [])
+    ],
+
     ...(enableCoverage
       ? {
-        coverageReporter: {
-          // specify a common output directory
+        coverageIstanbulReporter: {
+          reports: ["text-summary", "json"],
           dir: "coverage/chromium-extension",
-          reporters: [
-            { type: "text-summary" },
-            { type: "lcov", subdir: "report-lcov" },
-            { type: "lcovonly", subdir: ".", file: "report-lcovonly.txt" },
-          ]
-        }
+          skipFilesWithNoCoverage: true
+        },
       }
       : {}
     ),
-
-    reporters: [
-      "progress",
-      ...(enableCoverage ? ["coverage"] : [])
-    ],
 
     singleRun: true
   });

@@ -1,6 +1,6 @@
 import { assert } from "chai";
-import { LogLevel } from "../../src";
-import { ChromeLocalStorageCache, fromUtf8Base64, toUtf8Base64 } from "../../src/chromium-extension/ChromeLocalStorageCache";
+import { LogLevel } from "#lib";
+import { ChromeLocalStorageCache, fromUtf8Base64, toUtf8Base64 } from "#lib/chromium-extension/ChromeLocalStorageCache";
 import { FakeLogger } from "../helpers/fakes";
 import { createClientWithLazyLoad } from ".";
 

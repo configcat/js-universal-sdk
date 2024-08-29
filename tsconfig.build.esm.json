@@ -3,7 +3,9 @@
   "compilerOptions": {
     "target": "ES2017",
     "module": "ES2015",
-    "outDir": "./lib/esm"
+    "outDir": "./lib/esm",
+    // See also: https://github.com/microsoft/TypeScript/issues/14619#issuecomment-2203844244
+    "declaration": false
   },
   "files": [
     "src/node/index.full.ts",

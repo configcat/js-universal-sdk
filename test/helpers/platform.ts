@@ -1,6 +1,6 @@
-import type { IAutoPollOptions, IConfigCatClient, ILazyLoadingOptions, IManualPollOptions, PollingMode } from "../../src";
-import { OptionsForPollingMode } from "../../src/ConfigCatClientOptions";
-import type { IConfigCatKernel, IConfigFetcher } from "../../src/index.pubternals";
+import type { IAutoPollOptions, IConfigCatClient, ILazyLoadingOptions, IManualPollOptions, PollingMode } from "#lib";
+import { OptionsForPollingMode } from "#lib/ConfigCatClientOptions";
+import type { IConfigCatKernel, IConfigFetcher } from "#lib/index.pubternals";
 
 interface IPlatformAbstractions {
   pathJoin(...segments: string[]): string;

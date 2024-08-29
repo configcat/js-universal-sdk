@@ -1,6 +1,6 @@
 import { assert } from "chai";
-import { IConfigCatClient, IOptions, LogLevel, PollingMode, User } from "../src";
-import { createConsoleLogger } from "../src/index.pubternals";
+import { IConfigCatClient, IOptions, LogLevel, PollingMode, User } from "#lib";
+import { createConsoleLogger } from "#lib/index.pubternals";
 import { platform } from "./helpers/platform";
 
 const sdkKey = "configcat-sdk-1/PKDVCLf-Hq-h-kCzMp-L7Q/u28_1qNyZ0Wz-ldYHIU7-g";

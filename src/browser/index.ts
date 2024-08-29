@@ -50,4 +50,3 @@ export type OptionsForPollingMode<TMode extends PollingMode | undefined> =
     never;
 
 export * from "..";
-

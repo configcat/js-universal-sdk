@@ -1,7 +1,7 @@
 import { assert } from "chai";
-import { ConfigCatClient, ConfigCatClientCache } from "../src/ConfigCatClient";
-import { AutoPollOptions, ManualPollOptions } from "../src/ConfigCatClientOptions";
-import { isWeakRefAvailable, setupPolyfills } from "../src/Polyfills";
+import { ConfigCatClient, ConfigCatClientCache } from "#lib/ConfigCatClient";
+import { AutoPollOptions, ManualPollOptions } from "#lib/ConfigCatClientOptions";
+import { isWeakRefAvailable, setupPolyfills } from "#lib/Polyfills";
 import "./helpers/ConfigCatClientCacheExtensions";
 import { FakeConfigCatKernel, FakeConfigFetcher } from "./helpers/fakes";
 import { allowEventLoop } from "./helpers/utils";
