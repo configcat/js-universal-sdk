@@ -37,7 +37,7 @@ module.exports = function(config) {
     ...(enableCoverage
       ? {
         coverageIstanbulReporter: {
-          reports: ["text-summary", "json"],
+          reports: ["text-summary", "lcov"],
           dir: "coverage/browser",
           skipFilesWithNoCoverage: true
         },
