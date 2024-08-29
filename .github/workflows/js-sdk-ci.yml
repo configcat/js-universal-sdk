@@ -21,20 +21,17 @@ jobs:
         exclude:
           - node-version: 14.x
             os: macOS-latest
-    name: Node.js ${{ matrix.node-version }} test
+    name: Node.js ${{ matrix.node-version }} (${{ matrix.os }}) test
     steps:
       - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-        
-      - name: Install dependencies
+
+      - name: Install dependencies & build
         run: npm install
-          
-      - name: Build
-        run: npm run build
-        
+
       - name: Test
         run: npm run test:node
 
@@ -56,11 +53,8 @@ jobs:
         with:
           chrome-version: ${{ matrix.chrome }}
 
-      - name: Install dependencies
+      - name: Install dependencies & build
         run: npm install
-
-      - name: Build
-        run: npm run build
 
       - name: Test
         run: CHROME_BIN=$(which chrome) npm run test:browser:chrome
@@ -83,11 +77,8 @@ jobs:
         with:
           chrome-version: ${{ matrix.chrome }}
 
-      - name: Install dependencies
+      - name: Install dependencies & build
         run: npm install
-
-      - name: Build
-        run: npm run build
 
       - name: Test
         run: CHROMIUM_BIN=$(which chrome) npm run test:browser:chromium
@@ -110,11 +101,8 @@ jobs:
         with:
           firefox-version: ${{ matrix.firefox }}
 
-      - name: Install dependencies
+      - name: Install dependencies & build
         run: npm install
-
-      - name: Build
-        run: npm run build
 
       - name: Test
         run: npm run test:browser:firefox
@@ -137,11 +125,8 @@ jobs:
         with:
           chrome-version: ${{ matrix.chrome }}
 
-      - name: Install dependencies
+      - name: Install dependencies & build
         run: npm install
-
-      - name: Build
-        run: npm run build
 
       - name: Test
         run: CHROME_BIN=$(which chrome) npm run test:chromium-extension:chrome
@@ -164,17 +149,14 @@ jobs:
         with:
           chrome-version: ${{ matrix.chrome }}
 
-      - name: Install dependencies
+      - name: Install dependencies & build
         run: npm install
-
-      - name: Build
-        run: npm run build
 
       - name: Test
         run: CHROMIUM_BIN=$(which chrome) npm run test:chromium-extension:chromium
 
   coverage:
-    needs: [ 
+    needs: [
       test-node,
       test-browser-chrome, test-browser-chromium, test-browser-firefox,
       test-chromium-extension-chrome, test-chromium-extension-chromium
@@ -187,16 +169,13 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 14
-        
-      - name: Install dependencies
+
+      - name: Install dependencies & build
         run: npm install
-          
-      - name: Build
-        run: npm run build
-        
+
       - name: Test
         run: npm run coverage
-        
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
@@ -214,10 +193,10 @@ jobs:
         with:
           node-version: 14
           registry-url: 'https://registry.npmjs.org'
-          
+
       - name: Install dependencies
         run: npm install
-        
+
       - name: 🚀Publish
         run: npm publish
         env:

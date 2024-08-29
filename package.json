@@ -58,7 +58,7 @@
     "build": "gulp",
     "coverage:browser": "cross-env TEST_BROWSER_COVERAGE=true npm run test:browser:chrome",
     "coverage:chromium-extension": "cross-env TEST_CHROMIUM_EXTENSION_COVERAGE=true npm run test:chromium-extension:chrome",
-    "coverage:node": "nyc --include src/** --include lib/cjs/** --exclude lib/cjs/**/*.d.ts  --source-map --relative=true --report-dir coverage/node npm run test:node:indirect",
+    "coverage:node": "nyc --include 'src/**' --include 'lib/cjs/**' --exclude 'lib/cjs/**/*.d.ts'  --source-map --relative=true --report-dir coverage/node npm run test:node",
     "coverage": "npm run coverage:node && npm run coverage:browser && npm run coverage:chromium-extension && node merge-coverage.js",
     "lint:fix": "eslint . --ext .ts --fix",
     "lint": "eslint . --ext .ts",
@@ -68,7 +68,6 @@
     "test:browser:firefox": "karma start karma.browser.firefox.conf.js",
     "test:chromium-extension:chrome": "karma start karma.chromium-extension.chrome.conf.js",
     "test:chromium-extension:chromium": "karma start karma.chromium-extension.chromium.conf.js",
-    "test:node:indirect": "npm run test:node",
     "test:node": "cross-env NODE_EXTRA_CA_CERTS=./test/node/cert/testCA.pem TS_NODE_PROJECT=./tsconfig.mocha.node.json node --expose-gc --require ts-node/register node_modules/mocha/bin/_mocha 'test/node/index.ts' --exit --timeout 30000",
     "test": "npm run test:node && npm run test:browser:chrome && npm run test:chromium-extension:chrome"
   },
@@ -89,7 +88,6 @@
   "license": "MIT",
   "homepage": "https://configcat.com",
   "dependencies": {
-    "glob": "^11.0.0",
     "tunnel": "^0.0.6"
   },
   "devDependencies": {
@@ -109,6 +107,7 @@
     "eslint": "^8.34.0",
     "eslint-plugin-import": "^2.27.5",
     "fetch-mock": "^9.11.0",
+    "glob": "^11.0.0",
     "gulp": "^5.0.0",
     "karma": "^6.4.0",
     "karma-chai": "^0.1.0",
