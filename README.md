@@ -13,9 +13,9 @@ Target a specific group of users first with new ideas. Supports A/B/n testing an
 ConfigCat is a <a href="https://configcat.com" target="_blank">hosted feature flag service</a>. Manage feature toggles across frontend, backend, mobile, desktop apps. <a href="https://configcat.com" target="_blank">Alternative to LaunchDarkly</a>. Management app + feature flag SDKs.
 
 [![JS SDK CI](https://github.com/configcat/js-universal-sdk/actions/workflows/js-ci.yml/badge.svg?branch=master)](https://github.com/configcat/js-universal-sdk/actions/workflows/js-ci.yml) 
-[![codecov](https://codecov.io/gh/configcat/js-universal-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/configcat/js-universal-sdk) 
+[![Quality Gate Status](https://img.shields.io/sonar/quality_gate/configcat_js-universal-sdk?logo=SonarCloud&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/project/overview?id=configcat_js-universal-sdk)
+[![SonarCloud Coverage](https://img.shields.io/sonar/coverage/configcat_js-universal-sdk?logo=SonarCloud&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/project/overview?id=configcat_js-universal-sdk)
 [![Known Vulnerabilities](https://snyk.io/test/github/configcat/js-universal-sdk/badge.svg?targetFile=package.json)](https://snyk.io/test/github/configcat/js-universal-sdk?targetFile=package.json) 
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=configcat_js-universal-sdk&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=configcat_js-universal-sdk) 
 [![Tree Shaking](https://badgen.net/bundlephobia/tree-shaking/@configcat/sdk)](https://bundlephobia.com/result?p=@configcat/sdk) 
 ![License](https://img.shields.io/github/license/configcat/js-universal-sdk.svg) 
 [![](https://data.jsdelivr.com/v1/package/npm/@configcat/sdk/badge)](https://www.jsdelivr.com/package/npm/@configcat/sdk)
