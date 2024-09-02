@@ -14,10 +14,8 @@ const LIB_ALIAS_DENO = "#lib/deno";
 
 let imports = {
   "chai": "./node_modules/chai/index.mjs",
-  "fetch-mock": "./node_modules/fetch-mock/esm/client.js",
   "moq.ts/internal": "./node_modules/moq.ts/fesm2015/moq.ts.js",
-  "moq.ts": "./node_modules/moq.ts/fesm2015/moq.ts.js",
-  "core-js/features/array/flat.js": "./node_modules/core-js/features/array/flat.js"
+  "moq.ts": "./node_modules/moq.ts/fesm2015/moq.ts.js"
 };
 
 console.log("Generating import map for Deno tests...");

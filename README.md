@@ -45,7 +45,7 @@ Then import it into your application:
   import * as configcat from "npm:@configcat/sdk/deno";
   ```
 
-  (To make this work, you may need to enable the [unstable-byonm](https://docs.deno.com/runtime/manual/tools/unstable_flags/#--unstable-byonm) feature or modify your [import map](https://docs.deno.com/runtime/manual/basics/import_maps/).)
+  (To make this work, you may need to enable the [unstable-byonm](https://docs.deno.com/runtime/manual/tools/unstable_flags/#--unstable-byonm) feature or adjust your [import map](https://docs.deno.com/runtime/manual/basics/import_maps/).)
 
 * Frontend applications running in the browser:
   ```js
@@ -69,7 +69,7 @@ Import the package directly from a CDN server into your application:
   import * as configcat from "https://cdn.skypack.dev/@configcat/sdk@1.0.0?dts";
   ```
 
-* Frontend applications running in the browser
+* Frontend applications running in the browser:
 
   ```html
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@configcat/sdk@latest/dist/configcat.browser.umd.min.js"></script>
@@ -83,7 +83,7 @@ Import the package directly from a CDN server into your application:
   </script>
   ```
 
-* Extensions for Chromium-based browsers (Chrome, Edge, etc.)
+* Extensions for Chromium-based browsers (Chrome, Edge, etc.):
 
   ```js
   import * as configcat from "https://cdn.jsdelivr.net/npm/@configcat/sdk@latest/dist/configcat.chromium-extension.esm.min.js";
@@ -158,7 +158,7 @@ if (value) {
   - [Sample React web application](https://github.com/configcat/js-universal-sdk/tree/master/samples/react-sample)
   - [Sample React Native application](https://github.com/configcat/js-universal-sdk/tree/master/samples/react-native-sample)
   - [Sample Vue SSR web application](https://github.com/configcat/js-universal-sdk/tree/master/samples/vue-ssr-sample)
-  - [Sample Chrome Extension](https://github.com/configcat/js-universal-sdk/tree/master/samples/chrome-extension)
+  - [Sample Chrome extension](https://github.com/configcat/js-universal-sdk/tree/master/samples/chrome-extension)
 
 ## Polling Modes
 
@@ -188,11 +188,11 @@ Currently the `@configcat/sdk` NPM package includes the following builds of the 
   - Uses the standard ECMAScript module format.
   - Targets ES2017 and includes all required polyfills.
   - TypeScript type definitions are not provided.
-* `lib/cjs/` - for older versions of Node.js and older bundlers:
+* `lib/cjs/` - for old versions of Node.js and bundlers not supporting ES modules:
   - Uses the legacy CommonJS module format.
   - Targets ES2017 and includes all required polyfills except for the `Promise` feature. 
   - TypeScript type definitions are provided.
-* `lib/esm/` - for modern versions of Node.js, bundlers and Deno:
+* `lib/esm/` - for modern versions of Node.js, Deno and bundlers:
   - Uses the standard ECMAScript module format.
   - Targets ES2017 and includes all required polyfills except for the `Promise` feature.
   - TypeScript type definitions are provided.

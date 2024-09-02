@@ -1,4 +1,8 @@
-import * as configcat from "@configcat/sdk/node";
+// TypeScript versions earlier than v4.7 does not support module resolution modes "Node16" / "NodeNext",
+// which is necessary for package.json export subpaths to work. This means that when using the legacy
+// "Node" module resolution mode, importing the SDK via the "@configcat/sdk/node" specifier won't work.
+// In such cases, you can resort to importing the SDK using the "@configcat/sdk" specifier.
+import * as configcat from "@configcat/sdk";
 
 (async () => {
   const logger = configcat.createConsoleLogger(configcat.LogLevel.Info); // Setting log level to Info to show detailed feature flag evaluation

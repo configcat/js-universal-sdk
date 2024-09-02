@@ -1,5 +1,5 @@
-// @deno-types="npm:@types/mocha"
 import * as path from "https://deno.land/std@0.224.0/path/mod.ts";
+// @deno-types="npm:@types/mocha"
 import "npm:mocha/browser-entry.js";
 import { initPlatform } from "../helpers/platform";
 import { ConfigCatClient } from "#lib/ConfigCatClient";
