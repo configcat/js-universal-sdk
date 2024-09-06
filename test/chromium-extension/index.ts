@@ -1,3 +1,4 @@
+import { isTestSpec } from "..";
 import { initPlatform } from "../helpers/platform";
 import { getClient } from "#lib/chromium-extension";
 import type { IConfigCatClient, IJSAutoPollOptions, IJSLazyLoadingOptions, IJSManualPollOptions } from "#lib/chromium-extension";
@@ -49,16 +50,18 @@ initPlatform({
   getClient
 });
 
+/* Discover and load tests */
+
 declare const require: any;
 
-// With karma-webpack, importing test modules by `import "..";` does not work, we need to import them using some webpack magic (require.context).
+// With karma-webpack, importing test modules by `import("...");` does not work, we need to import them using some webpack magic (require.context).
 // This way we need to specify the set of modules via a single regex expression, which is pretty limited. We can't let any node-specific module
 // be matched by the regex because that would break webpack. So, as a workaround, we use the `.nb.ts` extension to ignore node-specific modules.
 const testsContext: Record<string, any> = require.context("..", true, /(?<!\/index|\.nb)\.ts$/);
 
 for (const key of testsContext.keys()) {
-  const segments = key.split("/");
-  if (segments.length <= 2 || segments[1] === "chromium-extension" || segments[1] === "helpers") {
+  const [isTest, segments] = isTestSpec(key, "chromium-extension");
+  if (isTest || (segments.length < 2 || segments[0] === "helpers")) {
     (testsContext as any)(key);
   }
 }

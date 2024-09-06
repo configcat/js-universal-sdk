@@ -1,11 +1,25 @@
-import { IConfigCatCache, LogEventId } from "#lib";
-import { IConfigCache } from "#lib/ConfigCatCache";
-import { IConfigCatKernel } from "#lib/ConfigCatClient";
-import { OptionsBase } from "#lib/ConfigCatClientOptions";
-import { IConfigCatLogger, LogLevel, LogMessage } from "#lib/ConfigCatLogger";
+import { IConfigCache, IConfigCatCache } from "#lib/ConfigCatCache";
+import { ConfigCatClient, IConfigCatClient } from "#lib/ConfigCatClient";
+import { AutoPollOptions, IAutoPollOptions, ILazyLoadingOptions, IManualPollOptions, LazyLoadOptions, ManualPollOptions, OptionsBase } from "#lib/ConfigCatClientOptions";
+import { IConfigCatLogger, LogEventId, LogLevel, LogMessage } from "#lib/ConfigCatLogger";
 import { IConfigFetcher, IFetchResponse } from "#lib/ConfigFetcher";
+import { IConfigCatKernel } from "#lib/index.pubternals";
 import { ProjectConfig } from "#lib/ProjectConfig";
 import { delay } from "#lib/Utils";
+
+export const sdkType = "ConfigCat-JS-Common", sdkVersion = "0.0.0-test";
+
+export function createClientWithAutoPoll(sdkKey: string, configCatKernel: IConfigCatKernel, options?: IAutoPollOptions): IConfigCatClient {
+  return new ConfigCatClient(new AutoPollOptions(sdkKey, configCatKernel.sdkType, configCatKernel.sdkVersion, options, configCatKernel.defaultCacheFactory, configCatKernel.eventEmitterFactory), configCatKernel);
+}
+
+export function createClientWithManualPoll(sdkKey: string, configCatKernel: IConfigCatKernel, options?: IManualPollOptions): IConfigCatClient {
+  return new ConfigCatClient(new ManualPollOptions(sdkKey, configCatKernel.sdkType, configCatKernel.sdkVersion, options, configCatKernel.defaultCacheFactory, configCatKernel.eventEmitterFactory), configCatKernel);
+}
+
+export function createClientWithLazyLoad(sdkKey: string, configCatKernel: IConfigCatKernel, options?: ILazyLoadingOptions): IConfigCatClient {
+  return new ConfigCatClient(new LazyLoadOptions(sdkKey, configCatKernel.sdkType, configCatKernel.sdkVersion, options, configCatKernel.defaultCacheFactory, configCatKernel.eventEmitterFactory), configCatKernel);
+}
 
 export class FakeLogger implements IConfigCatLogger {
   events: [LogLevel, LogEventId, LogMessage, any?][] = [];

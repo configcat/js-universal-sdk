@@ -1,7 +1,10 @@
 import "mocha";
 import * as fs from "fs";
+import * as glob from "glob";
 import * as path from "path";
 import { initPlatform } from "../helpers/platform";
+import { normalizePathSeparator } from "../helpers/utils";
+import { isTestSpec } from "../index";
 import { ConfigCatClient } from "#lib/ConfigCatClient";
 import { AutoPollOptions, LazyLoadOptions, ManualPollOptions } from "#lib/ConfigCatClientOptions";
 import type { IConfigCatKernel, IConfigFetcher } from "#lib/index.pubternals";
@@ -43,7 +46,17 @@ initPlatform({
   getClient
 });
 
-/* eslint-disable @typescript-eslint/no-require-imports */
-require("..");
-require("./ClientTests.nb");
-require("./HttpTests.nb");
+/* Discover and load tests */
+
+const testDir = path.resolve(__dirname, "..");
+
+for (const file of glob.globIterateSync(normalizePathSeparator(testDir) + "/**/*.ts", { absolute: false })) {
+  const [isTest, segments] = isTestSpec(file, "node");
+  if (isTest) {
+    const fileName = segments[segments.length - 1];
+    segments[segments.length - 1] = path.basename(fileName, path.extname(fileName));
+
+    /* eslint-disable @typescript-eslint/no-require-imports */
+    require("../" + segments.join("/"));
+  }
+}

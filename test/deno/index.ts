@@ -2,14 +2,13 @@ import * as path from "https://deno.land/std@0.224.0/path/mod.ts";
 // @deno-types="npm:@types/mocha"
 import "npm:mocha/browser-entry.js";
 import { initPlatform } from "../helpers/platform";
+import { isTestSpec } from "../index";
 import { ConfigCatClient } from "#lib/ConfigCatClient";
 import { AutoPollOptions, LazyLoadOptions, ManualPollOptions } from "#lib/ConfigCatClientOptions";
 import { IConfigCatClient, IDenoAutoPollOptions, IDenoLazyLoadingOptions, IDenoManualPollOptions, getClient } from "#lib/deno";
 import { FetchApiConfigFetcher, IConfigCatKernel, IConfigFetcher } from "#lib/index.pubternals.full";
 
 // Based on: https://dev.to/craigmorten/testing-your-deno-apps-with-mocha-4f35
-
-// Browser-based Mocha requires `window.location` to exist.
 
 const options: Mocha.MochaOptions = {};
 
@@ -20,6 +19,7 @@ for (let i = 0; i < Deno.args.length; i++) {
   options[key.substring(2) as keyof Mocha.MochaOptions] = value;
 }
 
+// Browser-based Mocha requires `window.location` to exist.
 const location = "http://localhost:0";
 (window as any).location = new URL(location);
 
@@ -66,8 +66,27 @@ initPlatform({
   getClient
 });
 
-await import("./ClientTests.nb.ts");
-await import("../index.ts");
+/* Discover and load tests */
+
+const testDir = path.resolve(path.dirname(path.fromFileUrl(import.meta.url)), "..");
+
+async function* enumerateFiles(dir: string): AsyncIterableIterator<string> {
+  for await (const entry of Deno.readDir(dir)) {
+    if (entry.isDirectory) {
+      yield* enumerateFiles(path.join(dir, entry.name));
+    }
+    else if (entry.isFile) {
+      yield path.join(dir, entry.name);
+    }
+  }
+}
+
+for await (const file of enumerateFiles(testDir)) {
+  const [isTest, segments] = isTestSpec(file, "deno");
+  if (isTest) {
+    await import("../" + segments.join("/"));
+  }
+}
 
 // And finally we run our tests, passing the onCompleted hook and setting some globals.
 mocha.run(failures => failures > 0 ? Deno.exit(1) : Deno.exit(0))

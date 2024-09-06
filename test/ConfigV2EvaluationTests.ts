@@ -1,8 +1,7 @@
 import { assert } from "chai";
 import { CdnConfigLocation, LocalFileConfigLocation } from "./helpers/ConfigLocation";
-import { FakeLogger } from "./helpers/fakes";
+import { FakeLogger, createClientWithManualPoll, sdkType, sdkVersion } from "./helpers/fakes";
 import { platform } from "./helpers/platform";
-import { createClientWithManualPoll, sdkType, sdkVersion } from "./helpers/utils";
 import { IManualPollOptions, OverrideBehaviour, SettingValue, User, UserAttributeValue } from "#lib";
 import { LogLevel, LoggerWrapper } from "#lib/ConfigCatLogger";
 import { FlagOverrides, MapOverrideDataSource } from "#lib/FlagOverrides";

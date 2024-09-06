@@ -1,5 +1,5 @@
+import { sdkType, sdkVersion } from "./fakes";
 import { platform } from "./platform";
-import { sdkType, sdkVersion } from "./utils";
 import { ManualPollOptions } from "#lib/ConfigCatClientOptions";
 import { ManualPollConfigService } from "#lib/ManualPollConfigService";
 import { Config } from "#lib/ProjectConfig";
