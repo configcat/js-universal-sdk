@@ -50,6 +50,7 @@ module.exports = new function(options) {
         {
           test: /\.m?js$/,
           include: [
+            path.resolve("node_modules/fetch-mock"),
             path.resolve("node_modules/mock-xmlhttprequest")
           ],
           use: [{
