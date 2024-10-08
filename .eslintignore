@@ -1,8 +1,10 @@
 build/
 coverage/
+deno.d.ts
 dist/
 lib/
 node_modules/
-src/Semver.ts
-src/Hash.ts
+samples/
 src/lib.*.d.ts
+src/Hash.ts
+src/Semver.ts

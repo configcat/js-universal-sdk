@@ -1,0 +1,10 @@
+{
+  "lint": {
+    "rules": {
+      "@typescript-eslint/no-explicit-any": "off"
+    }
+  },
+  "importMap": "deno.import-map.json",
+  "unstable": ["byonm"],
+  "nodeModulesDir": true
+}

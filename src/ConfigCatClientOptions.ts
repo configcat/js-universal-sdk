@@ -120,10 +120,11 @@ export interface ILazyLoadingOptions extends IOptions {
   cacheTimeToLiveSeconds?: number;
 }
 
-export type OptionsForPollingMode<TMode extends PollingMode> =
+export type OptionsForPollingMode<TMode extends PollingMode | unknown> =
   TMode extends PollingMode.AutoPoll ? IAutoPollOptions :
   TMode extends PollingMode.ManualPoll ? IManualPollOptions :
   TMode extends PollingMode.LazyLoad ? ILazyLoadingOptions :
+  TMode extends undefined ? IAutoPollOptions :
   never;
 
 /* eslint-disable @typescript-eslint/no-inferrable-types */

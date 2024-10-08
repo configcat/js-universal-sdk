@@ -820,8 +820,7 @@ let registerForFinalization = function(client: ConfigCatClient, data: IFinalizat
   // If FinalizationRegistry is unavailable, we can't really track finalization.
   // (Although we could implement something which resembles finalization callbacks using a weak map + a timer,
   // since ConfigCatClientCache also needs to keep (weak) references to the created client instances,
-  // this hypothetical approach wouldn't work without a complete WeakRef polyfill,
-  // which is kind of impossible (for more details, see Polyfills.ts).
+  // this hypothetical approach wouldn't work without a complete WeakRef polyfill, which is kind of impossible.
   else {
     registerForFinalization = () => () => { /* Intentional no-op */ };
   }

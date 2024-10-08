@@ -1,10 +1,9 @@
 import { assert } from "chai";
-import "mocha";
-import { ExternalConfigCache, IConfigCache, IConfigCatCache, InMemoryConfigCache, } from "../src/ConfigCatCache";
-import { ManualPollOptions } from "../src/ConfigCatClientOptions";
-import { LogLevel, LoggerWrapper } from "../src/ConfigCatLogger";
-import { Config, ProjectConfig } from "../src/ProjectConfig";
 import { FakeLogger } from "./helpers/fakes";
+import { ExternalConfigCache, IConfigCache, IConfigCatCache, InMemoryConfigCache, } from "#lib/ConfigCatCache";
+import { ManualPollOptions } from "#lib/ConfigCatClientOptions";
+import { LogLevel, LoggerWrapper } from "#lib/ConfigCatLogger";
+import { Config, ProjectConfig } from "#lib/ProjectConfig";
 
 describe("ConfigCatCache", () => {
   for (const isExternal of [false, true]) {
