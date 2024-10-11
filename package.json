@@ -75,7 +75,7 @@
     "test:browser:firefox": "karma start karma.browser.firefox.conf.js",
     "test:chromium-extension:chrome": "karma start karma.chromium-extension.chrome.conf.js",
     "test:chromium-extension:chromium": "karma start karma.chromium-extension.chromium.conf.js",
-    "test:deno": "node deno.import-map.generator.js && deno run -A test/deno/index.ts --timeout 30000",
+    "test:deno": "node deno.import-map.generator.js && node deno.set-env.js deno run $DENO_NODE_MODULES_DIR -A test/deno/index.ts --timeout 30000",
     "test:node": "cross-env NODE_EXTRA_CA_CERTS=./test/node/cert/testCA.pem TS_NODE_PROJECT=./tsconfig.mocha.node.json node --expose-gc --require ts-node/register node_modules/mocha/bin/_mocha 'test/node/index.ts' --exit --timeout 30000",
     "test": "npm run test:node && npm run test:browser:chrome && npm run test:chromium-extension:chrome && npm run test:deno"
   },

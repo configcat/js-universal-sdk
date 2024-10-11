@@ -159,13 +159,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        deno-version: [~v1.31, vx.x.x]
+        deno-version: [~1.31, ~1.46, vx.x.x]
         os: [ubuntu-latest, windows-latest, macOS-latest]
     name: Deno ${{ matrix.deno-version }} (${{ matrix.os }}) test
     steps:
       - uses: actions/checkout@v4
 
-      - uses: denoland/setup-deno@v1
+      - uses: denoland/setup-deno@v2
         with:
           deno-version: ${{ matrix.deno-version }}
 

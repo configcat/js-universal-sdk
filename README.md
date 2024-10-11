@@ -212,7 +212,7 @@ The SDK is [tested](https://github.com/configcat/js-universal-sdk/blob/master/.g
   - Chrome (stable, latest, beta)
   - Chromium (72.0.3626.0, 80.0.3987.0)
 - @configcat/sdk/deno:
-  - Deno (v1.31, latest stable) on Windows / Ubuntu / macOS
+  - Deno (v1.31, v1.46, latest stable) on Windows / Ubuntu / macOS
 - @configcat/sdk/node:
   - Node.js (v14.x, v16.x, v18.x, v20.x) on Windows / Ubuntu / macOS
 

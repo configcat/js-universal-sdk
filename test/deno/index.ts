@@ -21,6 +21,10 @@ for (let i = 0; i < Deno.args.length; i++) {
 
 // Browser-based Mocha requires `window.location` to exist.
 const location = "http://localhost:0";
+if (typeof window === "undefined") {
+  // window global is not available in Deno 2
+  globalThis.window = globalThis;
+}
 (window as any).location = new URL(location);
 
 // In order to use `describe` etc. we need to set Mocha to `bdd` mode.

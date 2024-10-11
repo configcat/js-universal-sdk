@@ -6,6 +6,7 @@
 *.log
 *.tgz
 coverage/
+CONTRIBUTING.md
 DEPENDENCIES.md
 DEPLOY.md
 deno.*

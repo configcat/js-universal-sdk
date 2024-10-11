@@ -5,6 +5,5 @@
     }
   },
   "importMap": "deno.import-map.json",
-  "unstable": ["byonm"],
-  "nodeModulesDir": true
+  "unstable": ["byonm"]
 }
