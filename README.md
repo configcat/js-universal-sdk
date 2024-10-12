@@ -214,7 +214,7 @@ The SDK is [tested](https://github.com/configcat/js-universal-sdk/blob/master/.g
 - @configcat/sdk/deno:
   - Deno (v1.31, v1.46, latest stable) on Windows / Ubuntu / macOS
 - @configcat/sdk/node:
-  - Node.js (v14.x, v16.x, v18.x, v20.x) on Windows / Ubuntu / macOS
+  - Node.js (v14.x, v16.x, v18.x, v20.x, v22.x) on Windows / Ubuntu / macOS
 
 These tests are running on each pull request, before each deploy, and on a daily basis.
 
