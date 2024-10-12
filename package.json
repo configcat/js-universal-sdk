@@ -62,6 +62,7 @@
   },
   "scripts": {
     "build": "gulp",
+    "check:ts-compat": "npm --prefix extra-checks/ts-compat-check run check",
     "coverage:browser": "cross-env TEST_BROWSER_COVERAGE=true npm run test:browser:chrome",
     "coverage:chromium-extension": "cross-env TEST_CHROMIUM_EXTENSION_COVERAGE=true npm run test:chromium-extension:chrome",
     "coverage:node": "nyc --include 'src/**' --include 'lib/cjs/**' --exclude 'lib/cjs/**/*.d.ts' --source-map --relative=true --report-dir coverage/node npm run test:node",
@@ -77,7 +78,7 @@
     "test:chromium-extension:chromium": "karma start karma.chromium-extension.chromium.conf.js",
     "test:deno": "node deno.import-map.generator.js && node deno.set-env.js deno run $DENO_NODE_MODULES_DIR -A test/deno/index.ts --timeout 30000",
     "test:node": "cross-env NODE_EXTRA_CA_CERTS=./test/node/cert/testCA.pem TS_NODE_PROJECT=./tsconfig.mocha.node.json node --expose-gc --require ts-node/register node_modules/mocha/bin/_mocha 'test/node/index.ts' --exit --timeout 30000",
-    "test": "npm run test:node && npm run test:browser:chrome && npm run test:chromium-extension:chrome && npm run test:deno"
+    "test": "npm run check:ts-compat && npm run test:node && npm run test:browser:chrome && npm run test:chromium-extension:chrome && npm run test:deno"
   },
   "keywords": [
     "configcat",

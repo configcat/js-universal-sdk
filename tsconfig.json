@@ -23,8 +23,9 @@
   },
   "exclude": [
     "**/node_modules/",
-    "lib/",
     "dist/",
+    "extra-checks/",
+    "lib/",
     "samples/"
   ]
 }

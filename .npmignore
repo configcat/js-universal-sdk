@@ -12,6 +12,7 @@ DEPLOY.md
 deno.*
 deno.*.*
 deploy.sh
+extra-checks/
 gulpfile.js
 karma.*.conf.js
 media/

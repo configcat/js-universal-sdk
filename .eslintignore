@@ -2,6 +2,7 @@ build/
 coverage/
 deno.d.ts
 dist/
+extra-checks/
 lib/
 node_modules/
 samples/

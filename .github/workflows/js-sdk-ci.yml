@@ -12,6 +12,22 @@ on:
   workflow_dispatch:
 
 jobs:
+  check-ts-compat:
+    runs-on: ubuntu-latest
+    name: TypeScript v4.0.2 compatibility check
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies & build
+        run: npm install
+
+      - name: Run check
+        run: npm run check:ts-compat
+
   test-node:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -177,6 +193,7 @@ jobs:
 
   coverage:
     needs: [
+      check-ts-compat,
       test-node,
       test-browser-chrome, test-browser-chromium, test-browser-firefox,
       test-chromium-extension-chrome, test-chromium-extension-chromium,
