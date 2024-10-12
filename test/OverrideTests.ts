@@ -1,12 +1,11 @@
 import { assert, expect } from "chai";
-import "mocha";
-import { SettingKeyValue } from "../src";
-import { ConfigCatClient, IConfigCatClient, IConfigCatKernel } from "../src/ConfigCatClient";
-import { AutoPollOptions, ManualPollOptions } from "../src/ConfigCatClientOptions";
-import { MapOverrideDataSource, OverrideBehaviour } from "../src/FlagOverrides";
-import { SettingValue } from "../src/ProjectConfig";
-import { isAllowedValue } from "../src/RolloutEvaluator";
 import { FakeConfigCatKernel, FakeConfigFetcherBase, FakeConfigFetcherWithNullNewConfig } from "./helpers/fakes";
+import { SettingKeyValue } from "#lib";
+import { ConfigCatClient, IConfigCatClient, IConfigCatKernel } from "#lib/ConfigCatClient";
+import { AutoPollOptions, ManualPollOptions } from "#lib/ConfigCatClientOptions";
+import { MapOverrideDataSource, OverrideBehaviour } from "#lib/FlagOverrides";
+import { SettingValue } from "#lib/ProjectConfig";
+import { isAllowedValue } from "#lib/RolloutEvaluator";
 
 describe("Local Overrides", () => {
   it("Values from map - LocalOnly", async () => {
@@ -46,6 +45,8 @@ describe("Local Overrides", () => {
     assert.equal(await client.getValueAsync("intSetting", null), 5);
     assert.equal(await client.getValueAsync("doubleSetting", null), 3.14);
     assert.equal(await client.getValueAsync("stringSetting", null), "test");
+
+    client.dispose();
   });
 
   it("Values from map - LocalOnly - watch changes - async", async () => {
@@ -85,6 +86,8 @@ describe("Local Overrides", () => {
     assert.equal(await client.getValueAsync("intSetting", null), -5);
     assert.equal(await client.getValueAsync("doubleSetting", null), 3.14);
     assert.equal(await client.getValueAsync("stringSetting", null), "test");
+
+    client.dispose();
   });
 
   it("Values from map - LocalOnly - watch changes - sync", async () => {
@@ -126,6 +129,8 @@ describe("Local Overrides", () => {
     assert.equal(await snapshot.getValue("intSetting", null), -5);
     assert.equal(await snapshot.getValue("doubleSetting", null), 3.14);
     assert.equal(await snapshot.getValue("stringSetting", null), "test");
+
+    client.dispose();
   });
 
   it("Values from map - LocalOverRemote", async () => {
@@ -147,6 +152,8 @@ describe("Local Overrides", () => {
 
     assert.equal(await client.getValueAsync("fakeKey", false), true);
     assert.equal(await client.getValueAsync("nonexisting", false), true);
+
+    client.dispose();
   });
 
   it("Values from map - RemoteOverLocal", async () => {
@@ -168,6 +175,8 @@ describe("Local Overrides", () => {
 
     assert.equal(await client.getValueAsync("fakeKey", true), false);
     assert.equal(await client.getValueAsync("nonexisting", false), true);
+
+    client.dispose();
   });
 
   it("Values from map - RemoteOverLocal - failing remote", async () => {
@@ -190,6 +199,8 @@ describe("Local Overrides", () => {
 
     assert.equal(await client.getValueAsync("fakeKey", false), true);
     assert.equal(await client.getValueAsync("nonexisting", false), true);
+
+    client.dispose();
   });
 
   it("Values from map - another map style", async () => {
@@ -218,6 +229,8 @@ describe("Local Overrides", () => {
     assert.equal(await client.getValueAsync("double_setting", 0), 3.14);
     assert.equal(await client.getValueAsync("string-setting", ""), "test");
     assert.equal(await client.getValueAsync("fakeKey", true), false);
+
+    client.dispose();
   });
 
   it("LocalOnly - forceRefresh() should return failure", async () => {
@@ -245,6 +258,8 @@ describe("Local Overrides", () => {
     assert.isFalse(refreshResult.isSuccess);
     expect(refreshResult.errorMessage).to.contain("LocalOnly");
     assert.isUndefined(refreshResult.errorException);
+
+    client.dispose();
   });
 
   for (const [overrideValue, defaultValue, expectedEvaluatedValue] of [
@@ -296,6 +311,8 @@ describe("Local Overrides", () => {
         settingValue: isAllowedValue(overrideValue) ? overrideValue : null
       }];
       assert.deepEqual(expectedEvaluatedValues, actualEvaluatedValues);
+
+      client.dispose();
     });
   }
 });

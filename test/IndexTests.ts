@@ -1,9 +1,8 @@
 import { assert } from "chai";
-import "mocha";
-import { PollingMode } from "../src";
-import { IConfigCatClient } from "../src/ConfigCatClient";
-import * as configcatClient from "../src/index";
 import { FakeConfigCatKernel, FakeConfigFetcher } from "./helpers/fakes";
+import { PollingMode } from "#lib";
+import { IConfigCatClient } from "#lib/ConfigCatClient";
+import * as configcatClient from "#lib/index.pubternals";
 
 describe("ConfigCatClient index (main)", () => {
 
